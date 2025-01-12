@@ -7,7 +7,8 @@
     $uploadDirectory = 'uploads/';
     $maxTxtFileSize = 100 * 1024;
 
-    if (isset($_POST["message_box"]) || isset($_POST['supplement'])) {
+    if (isset($_POST['supplement']) || isset($_POST["message_box"])) {
+        setcookie('errorChat', ' ');
         require_once 'DBConnection.php';
         $message = mysqli_real_escape_string($connect,$_POST["message_box"]);
         $date = date('Y-m-d H:i:s');
@@ -28,15 +29,35 @@
                     move_uploaded_file($tempFile, $targetFile);
                     $result = mysqli_query($connect,"insert into ChatMessages(Username, Email, Message, Input_Date, chat_browser, chat_user_ip, Supplement) values('$login', '$email', '$message', '$date', '$chat_browser', '$chatUserIp', '$targetFile')");
                 }
+                else {
+                    setcookie('errorChat', 'Размер файла не соответствует заданным требованиям (не более 240x320px)');
+                    $new_page_url = 'http://localhost/chatPage.php';
+                    header('Location: ' . $new_page_url);
+                    exit();
+                }
             }
-            elseif ($fileType === $supportedTxtType && $fileSize <= $maxTxtFileSize) {
-                move_uploaded_file($tempFile, $targetFile);
-                $result = mysqli_query($connect,"insert into ChatMessages(Username, Email, Message, Input_Date, chat_browser, chat_user_ip, Supplement) values('$login', '$email', '$message', '$date', '$chat_browser', '$chatUserIp', '$targetFile')");
+            elseif ($fileType === $supportedTxtType) {
+                if ($fileSize <= $maxTxtFileSize) {
+                    move_uploaded_file($tempFile, $targetFile);
+                    $result = mysqli_query($connect,"insert into ChatMessages(Username, Email, Message, Input_Date, chat_browser, chat_user_ip, Supplement) values('$login', '$email', '$message', '$date', '$chat_browser', '$chatUserIp', '$targetFile')");
+                }
+                else {
+                    setcookie('errorChat', 'Размер файла не соответствует заданным требованиям (не более 100кб)');
+                    $new_page_url = 'http://localhost/chatPage.php';
+                    header('Location: ' . $new_page_url);
+                    exit();
+                }
             }
         }
         else {
             $result = mysqli_query($connect,"insert into ChatMessages(Username, Email, Message, Input_Date, chat_browser, chat_user_ip) values('$login', '$email', '$message', '$date', '$chat_browser', '$chatUserIp')");
         }
+        $new_page_url = 'http://localhost/chatPage.php';
+        header('Location: ' . $new_page_url);
+        exit();
+    }
+    else {
+        setcookie('errorChat', 'Вы не можете отправить пустое сообщение');
         $new_page_url = 'http://localhost/chatPage.php';
         header('Location: ' . $new_page_url);
         exit();

@@ -9,14 +9,14 @@ body {
     bottom: 0;
     margin-left: -20%;
     width: 70%; /* Ширина прямоугольника */
-    height: 50px; /* Высота прямоугольника */
+    height: 60px; /* Высота прямоугольника */
     background-color: #f0f0f0;
 }
 
 .container {
     width: 90%;
     margin: 0 auto;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
 
 }
 
@@ -39,7 +39,7 @@ aside {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 170px; /* Ширина прямоугольника */
-    height: 150px; /* Высота прямоугольника */
+    height: auto; /* Высота прямоугольника */
     background-color: rgba(240, 240, 240, 0.9); /* Цвет фона с прозрачностью */
     border: 1px solid #ccc; /* Граница */
     border-radius: 10px; /* Скругление углов */
@@ -101,4 +101,9 @@ tr td:last-child {
 
 button {
     margin-top: 5px;
+}
+
+.error {
+    color: red;
+    font-size: 13px;
 }

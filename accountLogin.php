@@ -12,8 +12,20 @@
             $row = mysqli_fetch_assoc($result);
             $_SESSION["email"] = $row["Email"];
             $_SESSION["username"] = $row["UserName"];
-            $new_page_url = '/chatPage.php';
+            $new_page_url = '/pageHandler/setPageDefaultData.php';
             header('Location: ' . $new_page_url);
             exit();
         }
+        else {
+            setcookie('loginError', 'Неправильный логин или пароль');
+            $new_page_url = 'loginPage.php';
+            header('Location: ' . $new_page_url);
+            exit();
+        }
+    }
+    else {
+        setcookie('loginError', 'Неправильный логин или пароль');
+        $new_page_url = 'loginPage.php';
+        header('Location: ' . $new_page_url);
+        exit();
     }

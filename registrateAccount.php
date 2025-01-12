@@ -6,9 +6,12 @@
         $userName = mysqli_real_escape_string($connect, $_POST["userName"]);
 
         $result = mysqli_query($connect, "Select * from ChatUsers where Email = '$email' or UserName = '$userName'");
-        mysqli_close($connect);
         if (mysqli_num_rows($result) > 0) {
-            echo 'Аккаунт с такой почтой или именем пользователя уже существует';
+            setcookie('registrationError', 'Аккаунт с такой почтой или именем пользователя уже существует');
+            mysqli_close($connect);
+            $new_page_url = 'http://localhost/registrationPage.php';
+            header('Location: ' . $new_page_url);
+            exit();
         }
         else {
             $result = mysqli_query($connect,"insert into ChatUsers values('$email', '$userName', '$password')");
@@ -19,5 +22,8 @@
         }
     }
     else {
-        echo "Ошибка ввода данных";
+        setcookie('registrationError', 'Ошибка ввода данных');
+        $new_page_url = 'http://localhost/registrationPage.php';
+        header('Location: ' . $new_page_url);
+        exit();
     }

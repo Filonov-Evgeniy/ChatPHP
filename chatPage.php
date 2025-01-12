@@ -43,6 +43,7 @@ require_once "fillTableTest.php"; ?>
             </tbody>
         </table>
         <button type="submit" name="next">Следующая</button>
+        <span>Страница <?php echo $_COOKIE['page']+1 ?></span>
         <button type="submit" name="back">Предыдущая</button>
         <select name="sort">
             <option value="date-asc">Дата|По возрастанию</option>
@@ -59,6 +60,7 @@ require_once "fillTableTest.php"; ?>
         <input type="file" name="supplement" accept="image/jpeg, image/gif, image/png, text/plain">
         <textarea name="message_box" placeholder="Сообщение"></textarea>
         <button type="submit">Отправить</button>
+        <span class="error"> <?php echo $_COOKIE['errorChat'] ?> </span>
     </form>
 </body>
 </html>

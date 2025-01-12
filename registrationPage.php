@@ -1,3 +1,6 @@
+<?php
+    require_once 'setCookie.php';
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -12,6 +15,7 @@
             <input type="text" name="userName" placeholder="Имя пользователя"><br>
             <input type="text" name="password" placeholder="Пароль"><br>
             <button type="submit">Зарегестрироваться</button>
+            <p class="error"><?php echo $_COOKIE['registrationError'] ?></p>
         </div>
     </form>
 </body>

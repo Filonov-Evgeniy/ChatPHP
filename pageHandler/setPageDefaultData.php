@@ -1,6 +1,7 @@
 <?php
     session_start();
     setcookie('page', 0);
+    setcookie('errorChat', ' ');
     $_SESSION["sortColumn"] = 'Input_Date';
     $_SESSION["sortOrder"] = 'asc';
     $pageNumber = $_COOKIE['page'];

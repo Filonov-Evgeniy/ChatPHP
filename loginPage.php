@@ -1,5 +1,6 @@
 <?php 
 session_start();
+require_once 'setCookie.php';
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -14,6 +15,7 @@ session_start();
         <input type="text" name="password" placeholder="Пароль"><br>
         <button type="submit">Вход</button><br>
         <a href="registrationPage.php"><span>Регистрация</span></a>
+        <p class="error"><?php echo $_COOKIE['loginError'] ?></p>
     </form>
 </body>
 </html>
