@@ -7,7 +7,7 @@
     $uploadDirectory = 'uploads/';
     $maxTxtFileSize = 100 * 1024;
 
-    if (isset($_POST['supplement']) || isset($_POST["message_box"])) {
+    if (!empty($_POST['supplement']) || !empty($_POST['message_box'])) {
         setcookie('errorChat', ' ');
         require_once 'DBConnection.php';
         $message = mysqli_real_escape_string($connect,$_POST["message_box"]);
