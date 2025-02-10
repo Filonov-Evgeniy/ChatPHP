@@ -1,9 +1,15 @@
 <?php
+    require_once 'dbConnect.php';
+
+    use Chat\DBConnect;
+
     session_start();
     $pageSize = 25;
     $pageNumber = $_COOKIE['page'];
     $sortCol = $_SESSION['sortColumn'];
     $sortOrder = $_SESSION['sortOrder'];
+
+    $connect = DBConnect::getConnection();
 
     $result = mysqli_query($connect,"Select * from chatmessages order by ".$sortCol." ".$sortOrder);
     $messagesCount = mysqli_num_rows($result);

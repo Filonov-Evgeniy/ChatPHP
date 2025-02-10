@@ -1,4 +1,10 @@
 <?php
+    namespace Chat;
+
+    require_once "DBConnect.php";
+
+    use Chat\DBConnect;
+
     session_start();
     $maxImgHeight = 240;
     $maxImgWidth = 320;
@@ -9,7 +15,7 @@
 
     if (!empty($_FILES['supplement']) || !empty($_POST['message_box'])) {
         setcookie('errorChat', ' ');
-        require_once 'DBConnection.php';
+        $connect = DBConnect::getConnection();
         $message = mysqli_real_escape_string($connect,$_POST["message_box"]);
         $date = date('Y-m-d H:i:s');
         $login = mysqli_real_escape_string($connect,$_SESSION["username"]);

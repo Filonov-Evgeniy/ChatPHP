@@ -1,7 +1,6 @@
 <?php
     function choosePage(&$page)
     {
-        require_once 'DBConnection.php';
         if (isset($_COOKIE['page'])) {
             if (isset($_POST['back'])) {
                 require_once __DIR__.'/pageHandler/swipePagesBack.php';

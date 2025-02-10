@@ -1,6 +1,10 @@
 <?php
-    require_once 'DBConnection.php';
+    require_once 'DBConnect.php';
+
+    use Chat\DBConnect;
+
     if (!empty($_POST["email"]) && !empty($_POST["password"]) && !empty($_POST["userName"])) {
+        $connect = DBConnect::getConnection();
         $email = mysqli_real_escape_string($connect, $_POST["email"]);
         $password = mysqli_real_escape_string($connect, $_POST["password"]);
         $userName = mysqli_real_escape_string($connect, $_POST["userName"]);
