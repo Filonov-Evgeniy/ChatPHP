@@ -3,9 +3,9 @@
 
     require_once 'pageHandler.php';
 
-    use Chat\pageHandler;
+    use Chat\PageHandler;
 
-    $pageHandler = new pageHandler();
+    $pageHandler = new PageHandler();
     $page = []; 
     $pageHandler->choosePage($page);
     

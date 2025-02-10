@@ -3,7 +3,7 @@
 
     require_once 'pageHandlerTrait.php';
 
-    class pageHandler
+    class PageHandler
     {
         use pageHandlerTrait;
         function choosePage(&$page)
