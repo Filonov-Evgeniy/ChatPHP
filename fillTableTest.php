@@ -1,6 +1,12 @@
 <?php
-    require_once("pageHandler.php");
+    namespace Chat;
+
+    require_once 'pageHandler.php';
+
+    use Chat\pageHandler;
+
+    $pageHandler = new pageHandler();
     $page = []; 
-    choosePage($page);
+    $pageHandler->choosePage($page);
     
     

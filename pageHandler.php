@@ -1,21 +1,25 @@
 <?php
-    function choosePage(&$page)
+    namespace Chat;
+
+    require_once 'pageHandlerTrait.php';
+
+    class pageHandler
     {
-        if (isset($_COOKIE['page'])) {
-            if (isset($_POST['back'])) {
-                require_once __DIR__.'/pageHandler/swipePagesBack.php';
+        use pageHandlerTrait;
+        function choosePage(&$page)
+        {
+            if (isset($_COOKIE['page'])) {
+                if (isset($_POST['back'])) {
+                    $this->swipePagesBack();
+                } elseif (isset($_POST["next"])) {
+                    $this->swipePagesNext();
+                } elseif (isset($_POST['sortButton'])) {
+                    $this->sortPages();
+                } else {
+                    $this->loadPage($page);
+                }
+            } else {
+                $this->setPageDefaultData();
             }
-            elseif (isset($_POST["next"])) {
-                require_once __DIR__.'/pageHandler/swipePagesNext.php';
-            }
-            elseif (isset($_POST['sortButton'])) {
-                require_once __DIR__.'/pageHandler/sortPages.php';
-            }
-            else {
-                require_once __DIR__.'/pageHandler/loadPage.php';
-            }
-        }
-        else {
-            require_once __DIR__.'/pageHandler/setPageDefaultData.php';
         }
     }
