@@ -7,7 +7,7 @@
     $uploadDirectory = 'uploads/';
     $maxTxtFileSize = 100 * 1024;
 
-    if (!empty($_POST['supplement']) || !empty($_POST['message_box'])) {
+    if (!empty($_FILES['supplement']) || !empty($_POST['message_box'])) {
         setcookie('errorChat', ' ');
         require_once 'DBConnection.php';
         $message = mysqli_real_escape_string($connect,$_POST["message_box"]);
@@ -57,7 +57,7 @@
         exit();
     }
     else {
-        setcookie('errorChat', 'Вы не можете отправить пустое сообщение');
+        setcookie('errorChat', 'Вы не можете отправить пустое сообщение111');
         $new_page_url = 'http://localhost/chat/chatPage.php';
         header('Location: ' . $new_page_url);
         exit();

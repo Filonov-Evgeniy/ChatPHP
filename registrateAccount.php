@@ -1,30 +1,21 @@
 <?php
-    require_once 'DBConnect.php';
-    require_once 'Registration/Account.php';
-
-    use Chat\Registration\Account;
-    use Chat\DBConnect;
-
+    require_once 'DBConnection.php';
     if (!empty($_POST["email"]) && !empty($_POST["password"]) && !empty($_POST["userName"])) {
-        $dbConnect = DBConnect::getInstance();
-        $connect = $dbConnect->getConnection();
-
         $email = mysqli_real_escape_string($connect, $_POST["email"]);
         $password = mysqli_real_escape_string($connect, $_POST["password"]);
         $userName = mysqli_real_escape_string($connect, $_POST["userName"]);
 
-        $account = new Account($userName, $email, $password);
-        
-
-        // $result = mysqli_query($connect, "Select * from ChatUsers where Email = '$email' or UserName = '$userName'");
-        if (!$account->isUniqueAccount()) {
+        $result = mysqli_query($connect, "Select * from ChatUsers where Email = '$email' or UserName = '$userName'");
+        if (mysqli_num_rows($result) > 0) {
             setcookie('registrationError', 'Аккаунт с такой почтой или именем пользователя уже существует');
+            mysqli_close($connect);
             $new_page_url = 'http://localhost/chat/registrationPage.php';
             header('Location: ' . $new_page_url);
             exit();
         }
         else {
-            $account->registrateAccount();
+            $result = mysqli_query($connect,"insert into ChatUsers values('$email', '$userName', '$password')");
+            mysqli_close($connect);
             $new_page_url = 'http://localhost/chat/loginPage.php';
             header('Location: ' . $new_page_url);
             exit();

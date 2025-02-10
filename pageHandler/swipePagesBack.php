@@ -1,5 +1,5 @@
 <?php
-    $pageSize = null;
+    $pageSize;
     if(empty($pageSize)) {
         $pageSize = 25;
     }
