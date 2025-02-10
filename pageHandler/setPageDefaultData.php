@@ -5,6 +5,6 @@
     $_SESSION["sortColumn"] = 'Input_Date';
     $_SESSION["sortOrder"] = 'asc';
     $pageNumber = $_COOKIE['page'];
-    $new_page_url = 'http://localhost/chatPage.php';
+    $new_page_url = 'http://localhost/chat/chatPage.php';
     header('Location: ' . $new_page_url);
     exit;
