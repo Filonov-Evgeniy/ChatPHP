@@ -10,7 +10,7 @@
     $maxImgWidth = 320;
     $supportedImgTypes = ['image/jpeg', 'image/gif', 'image/png'];
     $supportedTxtType = 'text/plain';
-    $uploadDirectory = 'uploads/';
+    $uploadDirectory = '../uploads/';
     $maxTxtFileSize = 100 * 1024;
 
     if (!empty($_FILES['supplement']) || !empty($_POST['message_box'])) {
