@@ -1,7 +1,8 @@
 <?php
     namespace Chat\Registration;
 
-    require_once '../DBConnect.php';
+    require '../autoload.php';
+//    require_once '../DBConnect.php';
 
     use Chat\DBConnect;
 
@@ -31,5 +32,11 @@
             }
 
             return true;
+        }
+
+        public function getList($filter){
+
+            $result = mysqli_query($connect, "Select * from ChatUsers where Email = '$this->email' or UserName = '$this->userName'");
+
         }
     }

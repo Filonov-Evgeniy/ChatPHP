@@ -41,7 +41,7 @@
         }
         public function setPageDefaultData() {
             session_start();
-            setcookie('page', 0, ["path" => "/"]);
+            setcookie('page', 0);
             setcookie('errorChat', ' ');
             $_SESSION["sortColumn"] = 'Input_Date';
             $_SESSION["sortOrder"] = 'asc';
@@ -93,7 +93,7 @@
             if ($_SESSION['db_rows_count'] > ($pageNumber + 1) * $pageSize)
             {
                 $pageNumber = $_COOKIE['page'] + 1;
-                setcookie('page', $pageNumber, ["path" => "/"]);
+                setcookie('page', $pageNumber);
                 $new_page_url = 'http://localhost/chat/Views/chatPage.php';
                 header('Location: ' . $new_page_url);
                 exit;
@@ -108,7 +108,7 @@
             session_start();
             if ($_COOKIE['page'] > 0) {
                 $pageNumber = $_COOKIE['page'] - 1;
-                setcookie('page', $pageNumber, ["path" => "/"]);
+                setcookie('page', $pageNumber);
                 $new_page_url = 'http://localhost/chat/Views/chatPage.php';
                 header('Location: ' . $new_page_url);
                 exit;

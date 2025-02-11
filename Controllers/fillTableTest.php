@@ -1,7 +1,8 @@
 <?php
     namespace Chat\Controllers;
 
-    require_once 'pageHandler.php';
+    require '../autoload.php';
+    //require_once 'pageHandler.php';
 
     use Chat\Controllers\PageHandler;
 

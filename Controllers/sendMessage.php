@@ -1,10 +1,10 @@
 <?php
     namespace Chat\Controllers;
 
-    require_once "../DBConnect.php";
+    require '../autoload.php';
+    //require_once "../DBConnect.php";
 
     use Chat\DBConnect;
-
     session_start();
     $maxImgHeight = 240;
     $maxImgWidth = 320;

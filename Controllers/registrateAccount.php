@@ -1,7 +1,9 @@
 <?php
     namespace Chat\Controllers;
-    require_once '../DBConnect.php';
-    require_once '../Registration/Account.php';
+
+    require '../autoload.php';
+//    require_once '../DBConnect.php';
+//    require_once '../Registration/Account.php';
 
     use Chat\DBConnect;
     use Chat\Registration\Account;
