@@ -1,11 +1,11 @@
 <?php
-require_once "fillTableTest.php"; ?>
+require_once "../fillTableTest.php"; ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Чат</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <aside>
@@ -13,11 +13,11 @@ require_once "fillTableTest.php"; ?>
         <p><?= $_SESSION["username"] ?></p>
         <p>Email:</p>
         <p><?= $_SESSION["email"] ?></p>
-        <form action="exitAccount.php">
+        <form action="../exitAccount.php">
         <button type="submit">Выйти</button>
         </form>
     </aside>
-    <form method="POST" action="fillTableTest.php" class="container">
+    <form method="POST" action="../fillTableTest.php" class="container">
         <table>
             <thead>
                 <tr>
@@ -56,7 +56,7 @@ require_once "fillTableTest.php"; ?>
         <button type="submit" name="sortButton">Сортировать</button>
     </form>
 
-    <form class="chat-input" method="POST" action="sendMessage.php" enctype="multipart/form-data">
+    <form class="chat-input" method="POST" action="../sendMessage.php" enctype="multipart/form-data">
         <input type="file" name="supplement" accept="image/jpeg, image/gif, image/png, text/plain">
         <textarea name="message_box" placeholder="Сообщение"></textarea>
         <button type="submit">Отправить</button>

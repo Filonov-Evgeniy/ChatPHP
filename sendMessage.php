@@ -37,7 +37,7 @@
                 }
                 else {
                     setcookie('errorChat', 'Размер файла не соответствует заданным требованиям (не более 240x320px)');
-                    $new_page_url = 'http://localhost/chat/chatPage.php';
+                    $new_page_url = 'http://localhost/chat/Views/chatPage.php';
                     header('Location: ' . $new_page_url);
                     exit();
                 }
@@ -49,7 +49,7 @@
                 }
                 else {
                     setcookie('errorChat', 'Размер файла не соответствует заданным требованиям (не более 100кб)');
-                    $new_page_url = 'http://localhost/chat/chatPage.php';
+                    $new_page_url = 'http://localhost/chat/Views/chatPage.php';
                     header('Location: ' . $new_page_url);
                     exit();
                 }
@@ -58,13 +58,13 @@
         else {
             $result = mysqli_query($connect,"insert into ChatMessages(Username, Email, Message, Input_Date, chat_browser, chat_user_ip) values('$login', '$email', '$message', '$date', '$chat_browser', '$chatUserIp')");
         }
-        $new_page_url = 'http://localhost/chat/chatPage.php';
+        $new_page_url = 'http://localhost/chat/Views/chatPage.php';
         header('Location: ' . $new_page_url);
         exit();
     }
     else {
         setcookie('errorChat', 'Вы не можете отправить пустое сообщение111');
-        $new_page_url = 'http://localhost/chat/chatPage.php';
+        $new_page_url = 'http://localhost/chat/Views/chatPage.php';
         header('Location: ' . $new_page_url);
         exit();
     }
