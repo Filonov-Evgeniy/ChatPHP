@@ -34,7 +34,7 @@ require_once "../Controllers/fillTableTest.php"; ?>
                 echo "<tr>";
                     echo "<td>".htmlspecialchars($row["Username"])."</td>";
                     echo "<td>".htmlspecialchars($row["Email"])."</td>";
-                    echo "<td>".htmlspecialchars($row["Message"])."</td>";
+                    echo "<td>".($row["Message"])."</td>";
                     echo "<td>".htmlspecialchars($row["Input_Date"])."</td>";
                     echo "<td><a href='".$row["Supplement"]."' target='_blank'>".$row['Supplement']."</a></td>";
                 echo "<tr>";
