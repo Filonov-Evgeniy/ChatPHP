@@ -1,7 +1,7 @@
 <?php
-    namespace Chat;
+    namespace Chat\Controllers;
 
-    require_once "DBConnect.php";
+    require_once "../DBConnect.php";
 
     use Chat\DBConnect;
 

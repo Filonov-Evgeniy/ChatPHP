@@ -1,7 +1,7 @@
 <?php
     namespace Chat\Registration;
 
-    require_once 'DBConnect.php';
+    require_once '../DBConnect.php';
 
     use Chat\DBConnect;
 

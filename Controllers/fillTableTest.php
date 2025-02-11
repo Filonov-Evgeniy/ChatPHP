@@ -1,9 +1,9 @@
 <?php
-    namespace Chat;
+    namespace Chat\Controllers;
 
     require_once 'pageHandler.php';
 
-    use Chat\PageHandler;
+    use Chat\Controllers\PageHandler;
 
     $pageHandler = new PageHandler();
     $page = []; 

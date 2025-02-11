@@ -2,7 +2,7 @@
 
 namespace Chat\Login;
 
-require_once 'DBConnect.php';
+require_once '../DBConnect.php';
 
 use Chat\DBConnect;
 

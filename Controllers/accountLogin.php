@@ -1,11 +1,13 @@
 <?php
-    require_once 'DBConnect.php';
-    require_once 'Login/Account.php';
+    namespace Chat\Controllers;
+
+    require_once '../DBConnect.php';
+    require_once '../Login/Account.php';
     require_once 'pageHandler.php';
 
     use Chat\DBConnect;
     use Chat\Login\Account;
-    use Chat\PageHandler;
+    use Chat\Controllers\PageHandler;
 
 
     if(!empty($_POST["login"]) && !empty($_POST["password"])) {
