@@ -15,20 +15,20 @@
 
         if (!$account->isUniqueAccount()) {
             setcookie('registrationError', 'Аккаунт с такой почтой или именем пользователя уже существует');
-            $new_page_url = 'http://localhost/chat/registrationPage.php';
+            $new_page_url = 'http://localhost/chat/Views/registrationPage.php';
             header('Location: ' . $new_page_url);
             exit();
         }
         else {
             $account->registrateAccount();
-            $new_page_url = 'http://localhost/chat/loginPage.php';
+            $new_page_url = 'http://localhost/chat/Views/loginPage.php';
             header('Location: ' . $new_page_url);
             exit();
         }
     }
     else {
         setcookie('registrationError', 'Ошибка ввода данных');
-        $new_page_url = 'http://localhost/chat/registrationPage.php';
+        $new_page_url = 'http://localhost/chat/Views/registrationPage.php';
         header('Location: ' . $new_page_url);
         exit();
     }

@@ -41,12 +41,12 @@
         }
         public function setPageDefaultData() {
             session_start();
-            setcookie('page', 0);
+            setcookie('page', 0, ["path" => "/"]);
             setcookie('errorChat', ' ');
             $_SESSION["sortColumn"] = 'Input_Date';
             $_SESSION["sortOrder"] = 'asc';
             $pageNumber = $_COOKIE['page'];
-            $new_page_url = 'http://localhost/chat/chatPage.php';
+            $new_page_url = 'http://localhost/chat/Views/chatPage.php';
             header('Location: ' . $new_page_url);
             exit;
         }
@@ -79,7 +79,7 @@
                     $_SESSION["sortOrder"] = 'desc';
                     break;
             }
-            $new_page_url = 'http://localhost/chat/chatPage.php';
+            $new_page_url = 'http://localhost/chat/Views/chatPage.php';
             header('Location: ' . $new_page_url);
             exit;
         }
@@ -93,13 +93,13 @@
             if ($_SESSION['db_rows_count'] > ($pageNumber + 1) * $pageSize)
             {
                 $pageNumber = $_COOKIE['page'] + 1;
-                setcookie('page', $pageNumber);
-                $new_page_url = 'http://localhost/chat/chatPage.php';
+                setcookie('page', $pageNumber, ["path" => "/"]);
+                $new_page_url = 'http://localhost/chat/Views/chatPage.php';
                 header('Location: ' . $new_page_url);
                 exit;
             }
             else {
-                $new_page_url = 'http://localhost/chat/chatPage.php';
+                $new_page_url = 'http://localhost/chat/Views/chatPage.php';
                 header('Location: ' . $new_page_url);
                 exit;
             }
@@ -108,13 +108,13 @@
             session_start();
             if ($_COOKIE['page'] > 0) {
                 $pageNumber = $_COOKIE['page'] - 1;
-                setcookie('page', $pageNumber);
-                $new_page_url = 'http://localhost/chat/chatPage.php';
+                setcookie('page', $pageNumber, ["path" => "/"]);
+                $new_page_url = 'http://localhost/chat/Views/chatPage.php';
                 header('Location: ' . $new_page_url);
                 exit;
             }
             else {
-                $new_page_url = 'http://localhost/chat/chatPage.php';
+                $new_page_url = 'http://localhost/chat/Views/chatPage.php';
                 header('Location: ' . $new_page_url);
                 exit;
             }
