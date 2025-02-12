@@ -4,7 +4,7 @@ namespace Chat;
 require 'autoload.php';
 //require_once 'PageHandler.php';
 
-use Chat\Controllers\PageHandler;
+use Chat\PageHandler;
 
 class FillTableTest
 {
