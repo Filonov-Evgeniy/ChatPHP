@@ -29,15 +29,15 @@
             exit();
         }
         else {
-            setcookie('loginError', 'Неправильный логин или пароль');
-            $new_page_url = 'Views/loginPage.php';
+            setcookie('loginError', 'Неправильный логин или пароль', time()+360 ,'/chat/Views');
+            $new_page_url = '../Views/loginPage.php';
             header('Location: ' . $new_page_url);
             exit();
         }
     }
     else {
-        setcookie('loginError', 'Неправильный логин или пароль');
-        $new_page_url = 'Views/loginPage.php';
+        setcookie('loginError', 'Неправильный логин или пароль', time()+360 ,'/chat/Views');
+        $new_page_url = '../Views/loginPage.php';
         header('Location: ' . $new_page_url);
         exit();
     }

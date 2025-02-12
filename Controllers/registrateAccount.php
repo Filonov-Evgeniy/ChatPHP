@@ -8,30 +8,37 @@
     use Chat\DBConnect;
     use Chat\Registration\Account;
 
-    if (!empty($_POST["email"]) && !empty($_POST["password"]) && !empty($_POST["userName"])) {
-        $connect = DBConnect::getConnection();
-        $email = mysqli_real_escape_string($connect, $_POST["email"]);
-        $password = mysqli_real_escape_string($connect, $_POST["password"]);
-        $userName = mysqli_real_escape_string($connect, $_POST["userName"]);
+    $accountRegistration = new RegistrateAccount();
+    $accountRegistration->createAccount();
 
-        $account = new Account($userName, $email, $password);
+    class RegistrateAccount
+    {
+        public function createAccount()
+        {
+            if (!empty($_POST["email"]) && !empty($_POST["password"]) && !empty($_POST["userName"])) {
+                $connect = DBConnect::getConnection();
+                $email = mysqli_real_escape_string($connect, $_POST["email"]);
+                $password = mysqli_real_escape_string($connect, $_POST["password"]);
+                $userName = mysqli_real_escape_string($connect, $_POST["userName"]);
 
-        if (!$account->isUniqueAccount()) {
-            setcookie('registrationError', 'Аккаунт с такой почтой или именем пользователя уже существует');
-            $new_page_url = 'http://localhost/chat/Views/registrationPage.php';
-            header('Location: ' . $new_page_url);
-            exit();
+                $account = new Account($userName, $email, $password);
+
+                if (!$account->isUniqueAccount()) {
+                    setcookie('registrationError', 'Аккаунт с такой почтой или именем пользователя уже существует', time()+3600, '/chat/Views');
+                    $new_page_url = 'http://localhost/chat/Views/registrationPage.php';
+                    header('Location: ' . $new_page_url);
+                    exit();
+                } else {
+                    $account->registrateAccount();
+                    $new_page_url = 'http://localhost/chat/Views/loginPage.php';
+                    header('Location: ' . $new_page_url);
+                    exit();
+                }
+            } else {
+                setcookie('registrationError', 'Ошибка ввода данных', time()+3600, '/chat/Views');
+                $new_page_url = 'http://localhost/chat/Views/registrationPage.php';
+                header('Location: ' . $new_page_url);
+                exit();
+            }
         }
-        else {
-            $account->registrateAccount();
-            $new_page_url = 'http://localhost/chat/Views/loginPage.php';
-            header('Location: ' . $new_page_url);
-            exit();
-        }
-    }
-    else {
-        setcookie('registrationError', 'Ошибка ввода данных');
-        $new_page_url = 'http://localhost/chat/Views/registrationPage.php';
-        header('Location: ' . $new_page_url);
-        exit();
     }
