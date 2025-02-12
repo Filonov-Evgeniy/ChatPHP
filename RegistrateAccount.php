@@ -22,18 +22,18 @@ class RegistrateAccount
 
             if (!$account->isUniqueAccount()) {
                 setcookie('registrationError', 'Аккаунт с такой почтой или именем пользователя уже существует', ['path' => '/chat/Views']);
-                $new_page_url = 'http://localhost/chat/Views/registrationPage.php';
+                $new_page_url = '../Views/registrationPage.php';
                 header('Location: ' . $new_page_url);
                 exit();
             } else {
                 $account->registrateAccount();
-                $new_page_url = 'http://localhost/chat/Views/loginPage.php';
+                $new_page_url = '../Views/loginPage.php';
                 header('Location: ' . $new_page_url);
                 exit();
             }
         } else {
             setcookie('registrationError', 'Ошибка ввода данных', ['path' => '/chat/Views']);
-            $new_page_url = 'http://localhost/chat/Views/registrationPage.php';
+            $new_page_url = '../Views/registrationPage.php';
             header('Location: ' . $new_page_url);
             exit();
         }

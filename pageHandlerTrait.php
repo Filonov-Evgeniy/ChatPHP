@@ -37,7 +37,7 @@ trait pageHandlerTrait {
         setcookie('errorChat', ' ');
         $_SESSION["sortColumn"] = 'Input_Date';
         $_SESSION["sortOrder"] = 'desc';
-        $new_page_url = 'http://localhost/chat/Views/chatPage.php';
+        $new_page_url = '../Views/chatPage.php';
         header('Location: ' . $new_page_url);
         exit;
     }
@@ -69,7 +69,7 @@ trait pageHandlerTrait {
                 $_SESSION["sortOrder"] = 'desc';
                 break;
         }
-        $new_page_url = 'http://localhost/chat/Views/chatPage.php';
+        $new_page_url = '../Views/chatPage.php';
         header('Location: ' . $new_page_url);
         exit;
     }
@@ -80,12 +80,12 @@ trait pageHandlerTrait {
         {
             $pageNumber += 1;
             setcookie('page', $pageNumber, ['path' => "/chat/Views"]);
-            $new_page_url = 'http://localhost/chat/Views/chatPage.php';
+            $new_page_url = '../Views/chatPage.php';
             header('Location: ' . $new_page_url);
             exit;
         }
         else {
-            $new_page_url = 'http://localhost/chat/Views/chatPage.php';
+            $new_page_url = '../Views/chatPage.php';
             header('Location: ' . $new_page_url);
             exit;
         }
@@ -95,12 +95,12 @@ trait pageHandlerTrait {
             $pageNumber = $_COOKIE['page'];
             $pageNumber -= 1;
             setcookie('page', $pageNumber, ['path' => "/chat/Views"]);
-            $new_page_url = 'http://localhost/chat/Views/chatPage.php';
+            $new_page_url = '../Views/chatPage.php';
             header('Location: ' . $new_page_url);
             exit;
         }
         else {
-            $new_page_url = 'http://localhost/chat/Views/chatPage.php';
+            $new_page_url = '../Views/chatPage.php';
             header('Location: ' . $new_page_url);
             exit;
         }
