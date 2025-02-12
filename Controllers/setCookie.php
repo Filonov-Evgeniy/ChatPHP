@@ -1,4 +1,13 @@
 <?php
     namespace Chat\Controllers;
-    setcookie('loginError', ' ');
-    setcookie('registrationError', ' ');
+    class setCookie
+    {
+        function setCookie()
+        {
+            setcookie('loginError', ' ');
+            setcookie('registrationError', ' ');
+        }
+    }
+
+    $cookie = new setCookie();
+    $cookie->setCookie();
