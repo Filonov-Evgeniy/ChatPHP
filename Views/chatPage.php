@@ -1,4 +1,7 @@
 <?php
+
+use Chat\Controllers\FillTableTest;
+
 require_once "../Controllers/fillTableTest.php"; ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -29,7 +32,9 @@ require_once "../Controllers/fillTableTest.php"; ?>
                 </tr>
             </thead>
             <tbody>
-            <?php 
+            <?php
+                $fillTable = new FillTableTest();
+                $page = $fillTable->fillTable();
                 foreach ($page as $row) {
                 echo "<tr>";
                     echo "<td>".htmlspecialchars($row["Username"])."</td>";

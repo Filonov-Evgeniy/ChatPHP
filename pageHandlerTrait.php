@@ -1,10 +1,10 @@
 <?php
     namespace Chat;
+    session_start();
 
     trait pageHandlerTrait {
         public function loadPage(&$page) {
             require_once 'DBConnect.php';
-            session_start();
             $pageSize = 25;
             $pageNumber = $_COOKIE['page'];
             $sortCol = $_SESSION['sortColumn'];

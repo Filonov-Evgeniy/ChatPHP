@@ -6,8 +6,17 @@
 
     use Chat\Controllers\PageHandler;
 
-    $pageHandler = new PageHandler();
-    $page = []; 
-    $pageHandler->choosePage($page);
-    
+    class FillTableTest
+    {
+        public $page = [];
+        function fillTable()
+        {
+            $pageHandler = new PageHandler();
+            $pageHandler->choosePage($this->page);
+            return $this->page;
+        }
+    }
+
+    $fillTable = new FillTableTest();
+    $fillTable->fillTable();
     
