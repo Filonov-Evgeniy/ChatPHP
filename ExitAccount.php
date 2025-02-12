@@ -1,8 +1,5 @@
 <?php
-namespace Chat\Controller;
-
-$exitAccount = new ExitAccount();
-$exitAccount->exit();
+namespace Chat;
 
 class ExitAccount
 {

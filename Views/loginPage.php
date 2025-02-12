@@ -1,8 +1,9 @@
-<?php 
+<?php
 session_start();
 
+require "../autoload.php";
+
 use Chat\Controllers;
-use Chat\Controllers\Cookie;
 
 ?>
 <!DOCTYPE html>

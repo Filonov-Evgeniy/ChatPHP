@@ -16,7 +16,7 @@ require_once "../Controllers/FillTableTest.php"; ?>
         <p><?= $_SESSION["username"] ?></p>
         <p>Email:</p>
         <p><?= $_SESSION["email"] ?></p>
-        <form action="../Controllers/ExitAccount.php">
+        <form action="../Controllers/exitAccountController.php">
         <button type="submit">Выйти</button>
         </form>
     </aside>
