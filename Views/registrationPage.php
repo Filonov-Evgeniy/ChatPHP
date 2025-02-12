@@ -1,5 +1,7 @@
 <?php
-    require_once '../Controllers/Cookie.php';
+    require '../autoload.php';
+
+    use Chat\Cookie;
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -9,7 +11,7 @@
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-    <form method="POST" action="../Controllers/RegistrateAccount.php">
+    <form method="POST" action="../Controllers/registrateAccountController.php">
         <div class="form-group">
             <input type="text" name="email" placeholder="E-mail"><br>
             <input type="text" name="userName" placeholder="Имя пользователя"><br>

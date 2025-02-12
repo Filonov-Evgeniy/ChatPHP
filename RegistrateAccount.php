@@ -1,15 +1,12 @@
 <?php
-namespace Chat\Controllers;
+namespace Chat;
 
-require '../autoload.php';
+require 'autoload.php';
 //    require_once '../DBConnect.php';
 //    require_once '../Registration/Account.php';
 
 use Chat\DBConnect;
 use Chat\Registration\Account;
-
-$accountRegistration = new RegistrateAccount();
-$accountRegistration->createAccount();
 
 class RegistrateAccount
 {
