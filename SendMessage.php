@@ -1,13 +1,9 @@
 <?php
-namespace Chat\Controllers;
+namespace Chat;
 
-require '../autoload.php';
-//require_once "../DBConnect.php";
+require 'autoload.php';
 
 use Chat\DBConnect;
-
-$sendMessage = new SendMessage();
-$sendMessage->send();
 
 class SendMessage
 {

@@ -8,7 +8,7 @@ require 'autoload.php';
 
 use Chat\DBConnect;
 use Chat\Login\Account;
-use Chat\Controllers\PageHandler;
+use Chat\PageHandler;
 
 class AccountLogin
 {
