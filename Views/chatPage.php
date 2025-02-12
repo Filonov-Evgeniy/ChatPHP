@@ -2,7 +2,7 @@
 
 use Chat\Controllers\FillTableTest;
 
-require_once "../Controllers/fillTableTest.php"; ?>
+require_once "../Controllers/FillTableTest.php"; ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -16,11 +16,11 @@ require_once "../Controllers/fillTableTest.php"; ?>
         <p><?= $_SESSION["username"] ?></p>
         <p>Email:</p>
         <p><?= $_SESSION["email"] ?></p>
-        <form action="../Controllers/exitAccount.php">
+        <form action="../Controllers/ExitAccount.php">
         <button type="submit">Выйти</button>
         </form>
     </aside>
-    <form method="POST" action="../Controllers/fillTableTest.php" class="container">
+    <form method="POST" action="../Controllers/FillTableTest.php" class="container">
         <table>
             <thead>
                 <tr>
@@ -61,7 +61,7 @@ require_once "../Controllers/fillTableTest.php"; ?>
         <button type="submit" name="sortButton">Сортировать</button>
     </form>
 
-    <form class="chat-input" method="POST" action="../Controllers/sendMessage.php" enctype="multipart/form-data">
+    <form class="chat-input" method="POST" action="../Controllers/SendMessage.php" enctype="multipart/form-data">
         <input type="file" name="supplement" accept="image/jpeg, image/gif, image/png, text/plain">
         <textarea name="message_box" placeholder="Сообщение"></textarea>
         <button type="submit">Отправить</button>

@@ -1,6 +1,8 @@
 <?php 
 session_start();
-require_once '../Controllers/setCookie.php';
+
+use Chat\Controllers;
+use Chat\Controllers\Cookie;
 
 ?>
 <!DOCTYPE html>
@@ -11,7 +13,7 @@ require_once '../Controllers/setCookie.php';
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-    <form method="POST" action="../Controllers/accountLogin.php" class="form-group">
+    <form method="POST" action="../Controllers/accountLoginController.php" class="form-group">
         <input type="text" name="login" placeholder="Email"><br>
         <input type="text" name="password" placeholder="Пароль"><br>
         <button type="submit">Вход</button><br>
