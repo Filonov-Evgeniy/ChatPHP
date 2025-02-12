@@ -1,8 +1,11 @@
 <?php
+require '../autoload.php';
 
-use Chat\Controllers\FillTableTest;
+use Chat\Controllers;
+use Chat\FillTableTest;
 
-require_once "../Controllers/FillTableTest.php"; ?>
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -20,7 +23,7 @@ require_once "../Controllers/FillTableTest.php"; ?>
         <button type="submit">Выйти</button>
         </form>
     </aside>
-    <form method="POST" action="../Controllers/FillTableTest.php" class="container">
+    <form method="POST" action="../Controllers/fillTableController.php" class="container">
         <table>
             <thead>
                 <tr>

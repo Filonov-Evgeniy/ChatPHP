@@ -3,8 +3,6 @@ namespace Chat;
 
 require_once 'autoload.php';
 
-session_start();
-
 trait pageHandlerTrait {
     public function loadPage(&$page) {
         $pageSize = 25;

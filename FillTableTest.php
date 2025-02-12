@@ -1,7 +1,7 @@
 <?php
-namespace Chat\Controllers;
+namespace Chat;
 
-require '../autoload.php';
+require 'autoload.php';
 //require_once 'PageHandler.php';
 
 use Chat\Controllers\PageHandler;
@@ -16,7 +16,4 @@ class FillTableTest
         return $this->page;
     }
 }
-
-$fillTable = new FillTableTest();
-$fillTable->fillTable();
     
