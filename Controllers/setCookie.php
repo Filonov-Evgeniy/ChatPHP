@@ -4,8 +4,8 @@
     {
         function setCookie()
         {
-            setcookie('loginError', ' ');
-            setcookie('registrationError', ' ');
+            setcookie('loginError', ' ', ['path' => "/chat"]);
+            setcookie('registrationError', ' ', ['path' => "/chat"]);
         }
     }
 

@@ -1,10 +1,12 @@
 <?php
     namespace Chat;
+
+    require_once 'autoload.php';
+
     session_start();
 
     trait pageHandlerTrait {
         public function loadPage(&$page) {
-            require_once 'DBConnect.php';
             $pageSize = 25;
             $pageNumber = $_COOKIE['page'];
             $sortCol = $_SESSION['sortColumn'];
@@ -20,38 +22,31 @@
                 $resultArray[$i] = mysqli_fetch_assoc($result);
             }
 
-            if ($messagesCount < $pageSize) {
-                foreach ($result as $row) {
-                    $page[] = $row;
+            if ($pageNumber * $pageSize + $pageSize > $messagesCount) {
+                $difference = $pageNumber * $pageSize + $pageSize - $messagesCount;
+                for ($i = $pageNumber * $pageSize; $i <= $pageNumber * $pageSize + $pageSize - $difference - 1; $i++) {
+                    $page[] = $resultArray[$i];
                 }
             }
             else {
-                $difference = $messagesCount - $pageSize * ($pageNumber + 1);
-                if ($difference < 0) {
-                    for ( $i = 0; $i < $pageSize; $i++) {
-                        $page[] = $resultArray[$i];
-                    }
-                }
-                else {
-                    for ($i = $difference; $i < $messagesCount; $i++) {
-                        $page[] = $resultArray[$i];
-                    }
+                for ($i = $pageNumber * $pageSize; $i <= $pageNumber * $pageSize + $pageSize; $i++) {
+                    $page[] = $resultArray[$i];
                 }
             }
         }
         public function setPageDefaultData() {
-            session_start();
-            setcookie('page', 0);
+//            session_start();
+            setcookie('page', 0, ['path' => "/chat/Views"]);
             setcookie('errorChat', ' ');
             $_SESSION["sortColumn"] = 'Input_Date';
-            $_SESSION["sortOrder"] = 'asc';
-            $pageNumber = $_COOKIE['page'];
+            $_SESSION["sortOrder"] = 'desc';
+//            $pageNumber = $_COOKIE['page'];
             $new_page_url = 'http://localhost/chat/Views/chatPage.php';
             header('Location: ' . $new_page_url);
             exit;
         }
         public function sortPages() {
-            session_start();
+//            session_start();
             $sorttype = $_POST['sort'];
             switch ($sorttype) {
                 case 'date-asc':
@@ -84,16 +79,12 @@
             exit;
         }
         public function swipePagesBack() {
-            $pageSize;
-            if(empty($pageSize)) {
-                $pageSize = 25;
-            }
-            session_start();
+            $pageSize = 25;
             $pageNumber = $_COOKIE['page'];
             if ($_SESSION['db_rows_count'] > ($pageNumber + 1) * $pageSize)
             {
-                $pageNumber = $_COOKIE['page'] + 1;
-                setcookie('page', $pageNumber);
+                $pageNumber += 1;
+                setcookie('page', $pageNumber, ['path' => "/chat/Views"]);
                 $new_page_url = 'http://localhost/chat/Views/chatPage.php';
                 header('Location: ' . $new_page_url);
                 exit;
@@ -105,10 +96,11 @@
             }
         }
         public function swipePagesNext() {
-            session_start();
             if ($_COOKIE['page'] > 0) {
-                $pageNumber = $_COOKIE['page'] - 1;
-                setcookie('page', $pageNumber);
+                $pageNumber = $_COOKIE['page'];
+                $pageNumber -= 1;
+
+                setcookie('page', $pageNumber, ['path' => "/chat/Views"]);
                 $new_page_url = 'http://localhost/chat/Views/chatPage.php';
                 header('Location: ' . $new_page_url);
                 exit;

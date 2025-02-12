@@ -24,7 +24,7 @@
                 $account = new Account($userName, $email, $password);
 
                 if (!$account->isUniqueAccount()) {
-                    setcookie('registrationError', 'Аккаунт с такой почтой или именем пользователя уже существует', time()+3600, '/chat/Views');
+                    setcookie('registrationError', 'Аккаунт с такой почтой или именем пользователя уже существует', ['path' => '/chat/Views']);
                     $new_page_url = 'http://localhost/chat/Views/registrationPage.php';
                     header('Location: ' . $new_page_url);
                     exit();
@@ -35,7 +35,7 @@
                     exit();
                 }
             } else {
-                setcookie('registrationError', 'Ошибка ввода данных', time()+3600, '/chat/Views');
+                setcookie('registrationError', 'Ошибка ввода данных', ['path' => '/chat/Views']);
                 $new_page_url = 'http://localhost/chat/Views/registrationPage.php';
                 header('Location: ' . $new_page_url);
                 exit();
