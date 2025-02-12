@@ -3,7 +3,7 @@
 
     $exitAccount = new ExitAccount();
     $exitAccount->exitAccount();
-    
+
     class ExitAccount
     {
         public function exitAccount()
