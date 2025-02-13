@@ -4,7 +4,7 @@ namespace Chat;
 require 'autoload.php';
 
 use Chat\DBConnect;
-use Chat\Login\Account;
+use Chat\Models\Login\Account;
 use Chat\PageHandler;
 
 class AccountLogin

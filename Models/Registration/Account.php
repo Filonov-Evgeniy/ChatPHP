@@ -1,7 +1,7 @@
 <?php
-namespace Chat\Registration;
+namespace Chat\Models\Registration;
 
-require '../autoload.php';
+require '../../autoload.php';
 
 use Chat\DBConnect;
 

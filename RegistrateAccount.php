@@ -4,7 +4,7 @@ namespace Chat;
 require 'autoload.php';
 
 use Chat\DBConnect;
-use Chat\Registration\Account;
+use Chat\Models\Registration\Account;
 
 class RegistrateAccount
 {
