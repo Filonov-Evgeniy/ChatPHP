@@ -1,11 +1,16 @@
 <?php
-require_once "fillTableTest.php"; ?>
+require '../prolog.php';
+
+use Chat\Controller;
+use Chat\src\Message\TableFiller;
+
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Чат</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <aside>
@@ -13,11 +18,11 @@ require_once "fillTableTest.php"; ?>
         <p><?= $_SESSION["username"] ?></p>
         <p>Email:</p>
         <p><?= $_SESSION["email"] ?></p>
-        <form action="exitAccount.php">
+        <form action="/Controller/ChatPageController/user_exit_controller.php">
         <button type="submit">Выйти</button>
         </form>
     </aside>
-    <form method="POST" action="fillTableTest.php" class="container">
+    <form method="POST" action="/Controller/ChatPageController/table_filler_controller.php" class="container">
         <table>
             <thead>
                 <tr>
@@ -29,12 +34,14 @@ require_once "fillTableTest.php"; ?>
                 </tr>
             </thead>
             <tbody>
-            <?php 
+            <?php
+                $fillTable = new TableFiller();
+                $page = $fillTable->fillTable();
                 foreach ($page as $row) {
                 echo "<tr>";
                     echo "<td>".htmlspecialchars($row["Username"])."</td>";
                     echo "<td>".htmlspecialchars($row["Email"])."</td>";
-                    echo "<td>".htmlspecialchars($row["Message"])."</td>";
+                    echo "<td>".($row["Message"])."</td>";
                     echo "<td>".htmlspecialchars($row["Input_Date"])."</td>";
                     echo "<td><a href='".$row["Supplement"]."' target='_blank'>".$row['Supplement']."</a></td>";
                 echo "<tr>";
@@ -56,7 +63,7 @@ require_once "fillTableTest.php"; ?>
         <button type="submit" name="sortButton">Сортировать</button>
     </form>
 
-    <form class="chat-input" method="POST" action="sendMessage.php" enctype="multipart/form-data">
+    <form class="chat-input" method="POST" action="/Controller/ChatPageController/message_sender_controller.php" enctype="multipart/form-data">
         <input type="file" name="supplement" accept="image/jpeg, image/gif, image/png, text/plain">
         <textarea name="message_box" placeholder="Сообщение"></textarea>
         <button type="submit">Отправить</button>
