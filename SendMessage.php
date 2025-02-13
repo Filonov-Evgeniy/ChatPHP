@@ -27,7 +27,7 @@ class SendMessage
             $date = date('Y-m-d H:i:s');
             $login = mysqli_real_escape_string($connect, $_SESSION["username"]);
             $email = mysqli_real_escape_string($connect, $_SESSION["email"]);
-            $chat_browser = $_SERVER['HTTP_USER_AGENT'];
+            $chatBrowser = $_SERVER['HTTP_USER_AGENT'];
             $chatUserIp = $_SERVER['REMOTE_ADDR'];
             $connect->close();
 
@@ -36,7 +36,7 @@ class SendMessage
                 "'".$email."'",
                 "'".$message."'",
                 "'".$date."'",
-                "'".$chat_browser."'",
+                "'".$chatBrowser."'",
                 "'".$chatUserIp."'",
             ];
 
@@ -53,7 +53,9 @@ class SendMessage
                     if ($imgResolution[0] <= $maxImgWidth && $imgResolution[1] <= $maxImgHeight) {
                         move_uploaded_file($tempFile, $targetFile);
                         $columns = $this->getColumns(true);
+
                         $values[] = "'".$targetFile."'";
+
                         $dbConnect->filteredCreate($this->table, $columns, $values);
                     } else {
                         setcookie('errorChat', 'Размер файла не соответствует заданным требованиям (не более 240x320px)');
@@ -66,7 +68,9 @@ class SendMessage
                     if ($fileSize <= $maxTxtFileSize) {
                         move_uploaded_file($tempFile, $targetFile);
                         $columns = $this->getColumns(true);
+
                         $values[] = "'".$targetFile."'";
+
                         $dbConnect->filteredCreate($this->table, $columns, $values);
                     } else {
                         setcookie('errorChat', 'Размер файла не соответствует заданным требованиям (не более 100кб)');
@@ -77,14 +81,6 @@ class SendMessage
                 }
             } else {
                 $columns = $this->getColumns(false);
-                $values = [
-                    "'".$login."'",
-                    "'".$email."'",
-                    "'".$message."'",
-                    "'".$date."'",
-                    "'".$chat_browser."'",
-                    "'".$chatUserIp."'",
-                ];
                 $dbConnect->filteredCreate($this->table, $columns, $values);
             }
             $new_page_url = '../Views/chatPage.php';
