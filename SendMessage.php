@@ -7,6 +7,7 @@ use Chat\DBConnect;
 
 class SendMessage
 {
+    private $table = "ChatMessages";
     public function send()
     {
         session_start();
@@ -19,7 +20,8 @@ class SendMessage
 
         if (!empty($_FILES['supplement']) || !empty($_POST['message_box'])) {
             setcookie('errorChat', ' ');
-            $connect = DBConnect::getConnection();
+            $dbConnect = DBConnect::getInstance();
+            $connect = $dbConnect->getConnection();
             $message = mysqli_real_escape_string($connect, $_POST["message_box"]);
             $message = htmlspecialchars($message);
             $date = date('Y-m-d H:i:s');
@@ -27,6 +29,16 @@ class SendMessage
             $email = mysqli_real_escape_string($connect, $_SESSION["email"]);
             $chat_browser = $_SERVER['HTTP_USER_AGENT'];
             $chatUserIp = $_SERVER['REMOTE_ADDR'];
+            $connect->close();
+
+            $values = [
+                "'".$login."'",
+                "'".$email."'",
+                "'".$message."'",
+                "'".$date."'",
+                "'".$chat_browser."'",
+                "'".$chatUserIp."'",
+            ];
 
             $message = $this->useBBCode($message);
 
@@ -40,7 +52,9 @@ class SendMessage
                     $imgResolution = getimagesize($tempFile);
                     if ($imgResolution[0] <= $maxImgWidth && $imgResolution[1] <= $maxImgHeight) {
                         move_uploaded_file($tempFile, $targetFile);
-                        $result = mysqli_query($connect, "insert into ChatMessages(Username, Email, Message, Input_Date, chat_browser, chat_user_ip, Supplement) values('$login', '$email', '$message', '$date', '$chat_browser', '$chatUserIp', '$targetFile')");
+                        $columns = $this->getColumns(true);
+                        $values[] = "'".$targetFile."'";
+                        $dbConnect->filteredCreate($this->table, $columns, $values);
                     } else {
                         setcookie('errorChat', 'Размер файла не соответствует заданным требованиям (не более 240x320px)');
                         $new_page_url = '../Views/chatPage.php';
@@ -51,7 +65,9 @@ class SendMessage
                 ($fileType === $supportedTxtType) {
                     if ($fileSize <= $maxTxtFileSize) {
                         move_uploaded_file($tempFile, $targetFile);
-                        $result = mysqli_query($connect, "insert into ChatMessages(Username, Email, Message, Input_Date, chat_browser, chat_user_ip, Supplement) values('$login', '$email', '$message', '$date', '$chat_browser', '$chatUserIp', '$targetFile')");
+                        $columns = $this->getColumns(true);
+                        $values[] = "'".$targetFile."'";
+                        $dbConnect->filteredCreate($this->table, $columns, $values);
                     } else {
                         setcookie('errorChat', 'Размер файла не соответствует заданным требованиям (не более 100кб)');
                         $new_page_url = '../Views/chatPage.php';
@@ -60,7 +76,16 @@ class SendMessage
                     }
                 }
             } else {
-                $result = mysqli_query($connect, "insert into ChatMessages(Username, Email, Message, Input_Date, chat_browser, chat_user_ip) values('$login', '$email', '$message', '$date', '$chat_browser', '$chatUserIp')");
+                $columns = $this->getColumns(false);
+                $values = [
+                    "'".$login."'",
+                    "'".$email."'",
+                    "'".$message."'",
+                    "'".$date."'",
+                    "'".$chat_browser."'",
+                    "'".$chatUserIp."'",
+                ];
+                $dbConnect->filteredCreate($this->table, $columns, $values);
             }
             $new_page_url = '../Views/chatPage.php';
             header('Location: ' . $new_page_url);
@@ -87,5 +112,21 @@ class SendMessage
         );
 
         return preg_replace($search, $replace, $text);
+    }
+
+    private function getColumns(bool $withSupplement): array {
+        $columns = [
+            "Username",
+            "Email",
+            "Message",
+            "Input_Date",
+            "chat_browser",
+            "chat_user_ip",
+        ];
+        if(!$withSupplement) {
+            return $columns;
+        }
+        $columns[] = "Supplement";
+        return $columns;
     }
 }

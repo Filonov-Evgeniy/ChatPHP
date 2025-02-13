@@ -2,9 +2,6 @@
 namespace Chat;
 
 require 'autoload.php';
-//    require_once '../DBConnect.php';
-//    require_once '../Login/Account.php';
-//    require_once 'PageHandler.php';
 
 use Chat\DBConnect;
 use Chat\Login\Account;
@@ -15,11 +12,13 @@ class AccountLogin
     public function login()
     {
         if (!empty($_POST["login"]) && !empty($_POST["password"])) {
-
-            $connect = DBConnect::getConnection();
+            $dbConnect = DBConnect::getInstance();
+            $connect = $dbConnect->getConnection();
 
             $login = mysqli_real_escape_string($connect, $_POST['login']);
             $password = mysqli_real_escape_string($connect, $_POST['password']);
+
+            $connect->close();
 
             $account = new Account($login, $password);
 

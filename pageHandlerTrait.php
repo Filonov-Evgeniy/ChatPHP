@@ -9,16 +9,9 @@ trait pageHandlerTrait {
         $pageNumber = $_COOKIE['page'];
         $sortCol = $_SESSION['sortColumn'];
         $sortOrder = $_SESSION['sortOrder'];
-
-        $connect = DBConnect::getConnection();
-
-        $result = mysqli_query($connect,"Select * from chatmessages order by ".$sortCol." ".$sortOrder);
-        $messagesCount = mysqli_num_rows($result);
-        $_SESSION['db_rows_count'] = $messagesCount;
-        $resultArray = [];
-        for ($i = 0; $i < $messagesCount; $i++) {
-            $resultArray[$i] = mysqli_fetch_assoc($result);
-        }
+        $dbConnect = DBConnect::getInstance();
+        $resultArray = $dbConnect->getOrderedList('chatmessages', $sortCol, $sortOrder);
+        $messagesCount = $_SESSION['db_rows_count'];
 
         if ($pageNumber * $pageSize + $pageSize > $messagesCount) {
             $difference = $pageNumber * $pageSize + $pageSize - $messagesCount;

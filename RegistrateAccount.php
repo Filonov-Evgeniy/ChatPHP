@@ -2,8 +2,6 @@
 namespace Chat;
 
 require 'autoload.php';
-//    require_once '../DBConnect.php';
-//    require_once '../Registration/Account.php';
 
 use Chat\DBConnect;
 use Chat\Registration\Account;
@@ -13,7 +11,7 @@ class RegistrateAccount
     public function createAccount()
     {
         if (!empty($_POST["email"]) && !empty($_POST["password"]) && !empty($_POST["userName"])) {
-            $connect = DBConnect::getConnection();
+            $connect = DBConnect::getInstance()->getConnection();
             $email = mysqli_real_escape_string($connect, $_POST["email"]);
             $password = mysqli_real_escape_string($connect, $_POST["password"]);
             $userName = mysqli_real_escape_string($connect, $_POST["userName"]);
