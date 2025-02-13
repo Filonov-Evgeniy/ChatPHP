@@ -1,12 +1,12 @@
 <?php
-namespace Chat;
+namespace Chat\src\User;
 
-class ExitAccount
+class UserExit
 {
     public function exit()
     {
         session_destroy();
-        $new_page_url = '../Views/index.php';
+        $new_page_url = '../View/index.php';
         header('Location: ' . $new_page_url);
     }
 }

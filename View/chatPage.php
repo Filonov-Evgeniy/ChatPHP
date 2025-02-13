@@ -1,10 +1,9 @@
 <?php
-require '../autoload.php';
+require '../prolog.php';
 
-use Chat\Controllers;
-use Chat\FillTableTest;
+use Chat\Controller;
+use Chat\src\Message\TableFiller;
 
-session_start();
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -19,11 +18,11 @@ session_start();
         <p><?= $_SESSION["username"] ?></p>
         <p>Email:</p>
         <p><?= $_SESSION["email"] ?></p>
-        <form action="../Controllers/exitAccountController.php">
+        <form action="/Controller/ChatPageController/user_exit_controller.php">
         <button type="submit">Выйти</button>
         </form>
     </aside>
-    <form method="POST" action="../Controllers/fillTableController.php" class="container">
+    <form method="POST" action="/Controller/ChatPageController/table_filler_controller.php" class="container">
         <table>
             <thead>
                 <tr>
@@ -36,7 +35,7 @@ session_start();
             </thead>
             <tbody>
             <?php
-                $fillTable = new FillTableTest();
+                $fillTable = new TableFiller();
                 $page = $fillTable->fillTable();
                 foreach ($page as $row) {
                 echo "<tr>";
@@ -64,7 +63,7 @@ session_start();
         <button type="submit" name="sortButton">Сортировать</button>
     </form>
 
-    <form class="chat-input" method="POST" action="../Controllers/sendMessageController.php" enctype="multipart/form-data">
+    <form class="chat-input" method="POST" action="/Controller/ChatPageController/message_sender_controller.php" enctype="multipart/form-data">
         <input type="file" name="supplement" accept="image/jpeg, image/gif, image/png, text/plain">
         <textarea name="message_box" placeholder="Сообщение"></textarea>
         <button type="submit">Отправить</button>

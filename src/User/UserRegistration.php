@@ -4,9 +4,9 @@ namespace Chat;
 require 'autoload.php';
 
 use Chat\DBConnect;
-use Chat\Models\Registration\Account;
+use Chat\Models\Registration\ChatUsers;
 
-class RegistrateAccount
+class UserRegistration
 {
     public function createAccount()
     {
@@ -16,22 +16,22 @@ class RegistrateAccount
             $password = mysqli_real_escape_string($connect, $_POST["password"]);
             $userName = mysqli_real_escape_string($connect, $_POST["userName"]);
 
-            $account = new Account($userName, $email, $password);
+            $account = new ChatUsers($userName, $email, $password);
 
             if (!$account->isUniqueAccount()) {
-                setcookie('registrationError', 'Аккаунт с такой почтой или именем пользователя уже существует', ['path' => '/chat/Views']);
-                $new_page_url = '../Views/registrationPage.php';
+                setcookie('registrationError', 'Аккаунт с такой почтой или именем пользователя уже существует', ['path' => '/chat/View']);
+                $new_page_url = '../View/registrationPage.php';
                 header('Location: ' . $new_page_url);
                 exit();
             } else {
                 $account->registrateAccount();
-                $new_page_url = '../Views/index.php';
+                $new_page_url = '../View/index.php';
                 header('Location: ' . $new_page_url);
                 exit();
             }
         } else {
-            setcookie('registrationError', 'Ошибка ввода данных', ['path' => '/chat/Views']);
-            $new_page_url = '../Views/registrationPage.php';
+            setcookie('registrationError', 'Ошибка ввода данных', ['path' => '/chat/View']);
+            $new_page_url = '../View/registrationPage.php';
             header('Location: ' . $new_page_url);
             exit();
         }

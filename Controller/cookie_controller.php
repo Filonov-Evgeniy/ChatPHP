@@ -1,9 +1,9 @@
 <?php
-namespace Chat\Controllers;
+namespace Chat\Controller;
 
 require "../autoload.php";
 
-use Chat\Cookie;
+use Chat\src\Cookie\Cookie;
 
 $cookie = new Cookie();
 $cookie->setCookie();

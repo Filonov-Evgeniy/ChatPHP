@@ -1,20 +1,23 @@
 <?php
 namespace Chat;
+define('NO_CONNECTION', 'Y');
 
 require 'autoload.php';
 
-use Chat\DBConnect;
+use Chat\Builder\MessageBuilderClass;
+use Chat\Models\Message;
 
-class SendMessage
+class SendFileTest
 {
-    private $table = "ChatMessages";
+//    private $table = "ChatMessages";
     public function send()
     {
         session_start();
+        $messageBuilder = new MessageBuilderClass();
         $maxImgHeight = 240;
         $maxImgWidth = 320;
         $supportedImgTypes = ['image/jpeg', 'image/gif', 'image/png'];
-        $supportedTxtType = 'text/plain';
+        $supportedTxtType = ['text/plain'];
         $uploadDirectory = '../uploads/';
         $maxTxtFileSize = 100 * 1024;
 
@@ -22,8 +25,8 @@ class SendMessage
             setcookie('errorChat', ' ');
             $dbConnect = DBConnect::getInstance();
             $connect = $dbConnect->getConnection();
-            $message = mysqli_real_escape_string($connect, $_POST["message_box"]);
-            $message = htmlspecialchars($message);
+            $messageText = mysqli_real_escape_string($connect, $_POST["message_box"]);
+            $messageText = htmlspecialchars($messageText);
             $date = date('Y-m-d H:i:s');
             $login = mysqli_real_escape_string($connect, $_SESSION["username"]);
             $email = mysqli_real_escape_string($connect, $_SESSION["email"]);
@@ -31,16 +34,25 @@ class SendMessage
             $chatUserIp = $_SERVER['REMOTE_ADDR'];
             $connect->close();
 
-            $values = [
-                "'".$login."'",
-                "'".$email."'",
-                "'".$message."'",
-                "'".$date."'",
-                "'".$chatBrowser."'",
-                "'".$chatUserIp."'",
-            ];
+            $messageText = $this->useBBCode($messageText);
 
-            $message = $this->useBBCode($message);
+            $messageBuilder->setMessageText($messageText);
+            $messageBuilder->setDate($date);
+            $messageBuilder->setUsername($login);
+            $messageBuilder->setEmail($email);
+            $messageBuilder->setChatBrowser($chatBrowser);
+            $messageBuilder->setUserIp($chatUserIp);
+
+            $message = $messageBuilder->build();
+
+            $values = [
+                "'".$message->getUsername()."'",
+                "'".$message->getEmail()."'",
+                "'".$message->getChatBrowser()."'",
+                "'".$message->getDate()."'",
+                "'".$message->getUsername()."'",
+                "'".$message->getEmail()."'",
+            ];
 
             if (isset($_FILES['supplement']) && $_FILES['supplement']['error'] === UPLOAD_ERR_OK) {
                 $tempFile = $_FILES['supplement']['tmp_name'];
@@ -48,47 +60,49 @@ class SendMessage
                 $fileType = $_FILES['supplement']['type'];
                 $fileSize = $_FILES['supplement']['size'];
                 $targetFile = $uploadDirectory . $fileName;
-                if (in_array($fileType, $supportedImgTypes)) {
-                    $imgResolution = getimagesize($tempFile);
-                    if ($imgResolution[0] <= $maxImgWidth && $imgResolution[1] <= $maxImgHeight) {
+                if ($message->isSupportedImgFileType($supportedImgTypes)) {
+                    if ($message->checkImgSize(getimagesize($tempFile) ,$maxImgHeight, $maxImgWidth)) {
                         move_uploaded_file($tempFile, $targetFile);
                         $columns = $this->getColumns(true);
 
                         $values[] = "'".$targetFile."'";
 
-                        $dbConnect->filteredCreate($this->table, $columns, $values);
+//                        $dbConnect->filteredCreate($this->table, $columns, $values);
+                        $message->sendMessage($columns, $values);
                     } else {
                         setcookie('errorChat', 'Размер файла не соответствует заданным требованиям (не более 240x320px)');
-                        $new_page_url = '../Views/chatPage.php';
+                        $new_page_url = '../View/chatPage.php';
                         header('Location: ' . $new_page_url);
                         exit();
                     }
                 } elseif
-                ($fileType === $supportedTxtType) {
-                    if ($fileSize <= $maxTxtFileSize) {
+                ($message->isSupportedTxtType($supportedTxtType)) {
+                    if ($message->checkTxtFileSize($fileSize, $maxTxtFileSize)) {
                         move_uploaded_file($tempFile, $targetFile);
                         $columns = $this->getColumns(true);
 
                         $values[] = "'".$targetFile."'";
 
-                        $dbConnect->filteredCreate($this->table, $columns, $values);
+//                        $dbConnect->filteredCreate($this->table, $columns, $values);
+                        $message->sendMessage($columns, $values);
                     } else {
                         setcookie('errorChat', 'Размер файла не соответствует заданным требованиям (не более 100кб)');
-                        $new_page_url = '../Views/chatPage.php';
+                        $new_page_url = '../View/chatPage.php';
                         header('Location: ' . $new_page_url);
                         exit();
                     }
                 }
             } else {
                 $columns = $this->getColumns(false);
-                $dbConnect->filteredCreate($this->table, $columns, $values);
+//                $dbConnect->filteredCreate($this->table, $columns, $values);
+                $message->sendMessage($columns, $values);
             }
-            $new_page_url = '../Views/chatPage.php';
+            $new_page_url = '../View/chatPage.php';
             header('Location: ' . $new_page_url);
             exit();
         } else {
             setcookie('errorChat', 'Вы не можете отправить пустое сообщение111');
-            $new_page_url = '../Views/chatPage.php';
+            $new_page_url = '../View/chatPage.php';
             header('Location: ' . $new_page_url);
             exit();
         }

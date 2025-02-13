@@ -3,11 +3,10 @@ namespace Chat;
 
 require 'autoload.php';
 
-use Chat\DBConnect;
+use Chat\ChatPageHandler\ChatPageHandler;
 use Chat\Models\Login\Account;
-use Chat\PageHandler;
 
-class AccountLogin
+class UserAuthorization
 {
     public function login()
     {
@@ -26,18 +25,18 @@ class AccountLogin
                 session_start();
                 $_SESSION["email"] = $account->getEmail();
                 $_SESSION["username"] = $account->getUsername();
-                $pageHandler = new PageHandler();
+                $pageHandler = new ChatPageHandler();
                 $pageHandler->setPageDefaultData();
                 exit();
             } else {
-                setcookie('loginError', 'Неправильный логин или пароль', ['path' => '/chat/Views']);
-                $new_page_url = '../Views/index.php';
+                setcookie('loginError', 'Неправильный логин или пароль', ['path' => '/chat/View']);
+                $new_page_url = '../View/index.php';
                 header('Location: ' . $new_page_url);
                 exit();
             }
         } else {
-            setcookie('loginError', 'Неправильный логин или пароль', ['path' => '/chat/Views']);
-            $new_page_url = '../Views/index.php';
+            setcookie('loginError', 'Неправильный логин или пароль', ['path' => '/chat/View']);
+            $new_page_url = '../View/index.php';
             header('Location: ' . $new_page_url);
             exit();
         }

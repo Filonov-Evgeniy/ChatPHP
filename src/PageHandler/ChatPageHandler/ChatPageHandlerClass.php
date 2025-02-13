@@ -1,13 +1,13 @@
 <?php
-namespace Chat;
+namespace Chat\src\PageHandler\ChatPageHandler;
 
-require 'autoload.php';
+require $_SERVER['DOCUMENT_ROOT'].'/chat/autoload.php';
 
-use Chat\pageHandlerTrait;
+use Chat\src\PageHandler\ChatPageHandler;
 
-class PageHandler
+class ChatPageHandlerClass
 {
-    use pageHandlerTrait;
+    use ChatPageHandlerTrait;
     function choosePage(&$page)
     {
         if (isset($_COOKIE['page'])) {

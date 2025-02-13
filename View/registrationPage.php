@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-    <form method="POST" action="../Controllers/registrateAccountController.php">
+    <form method="POST" action="/chat/Controller/RegistrationPageController/registrate_account_controller.php">
         <div class="form-group">
             <input type="text" name="email" placeholder="E-mail"><br>
             <input type="text" name="userName" placeholder="Имя пользователя"><br>

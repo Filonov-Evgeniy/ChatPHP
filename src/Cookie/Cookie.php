@@ -1,5 +1,5 @@
 <?php
-namespace Chat;
+namespace Chat\src\Cookie;
 class Cookie
 {
     public function setCookie()

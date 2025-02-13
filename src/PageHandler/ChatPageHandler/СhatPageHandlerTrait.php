@@ -1,9 +1,11 @@
 <?php
-namespace Chat;
+namespace Chat\src\PageHandler\ChatPageHandler;
 
 require_once 'autoload.php';
 
-trait pageHandlerTrait {
+use Chat\DBConnect;
+
+trait ChatPageHandlerTrait {
     public function loadPage(&$page) {
         $pageSize = 25;
         $pageNumber = $_COOKIE['page'];
@@ -26,11 +28,11 @@ trait pageHandlerTrait {
         }
     }
     public function setPageDefaultData() {
-        setcookie('page', 0, ['path' => "/chat/Views"]);
+        setcookie('page', 0, ['path' => "/chat/View"]);
         setcookie('errorChat', ' ');
         $_SESSION["sortColumn"] = 'Input_Date';
         $_SESSION["sortOrder"] = 'desc';
-        $new_page_url = '../Views/chatPage.php';
+        $new_page_url = '../View/chatPage.php';
         header('Location: ' . $new_page_url);
         exit;
     }
@@ -62,7 +64,7 @@ trait pageHandlerTrait {
                 $_SESSION["sortOrder"] = 'desc';
                 break;
         }
-        $new_page_url = '../Views/chatPage.php';
+        $new_page_url = '../View/chatPage.php';
         header('Location: ' . $new_page_url);
         exit;
     }
@@ -72,13 +74,13 @@ trait pageHandlerTrait {
         if ($_SESSION['db_rows_count'] > ($pageNumber + 1) * $pageSize)
         {
             $pageNumber += 1;
-            setcookie('page', $pageNumber, ['path' => "/chat/Views"]);
-            $new_page_url = '../Views/chatPage.php';
+            setcookie('page', $pageNumber, ['path' => "/chat/View"]);
+            $new_page_url = '../View/chatPage.php';
             header('Location: ' . $new_page_url);
             exit;
         }
         else {
-            $new_page_url = '../Views/chatPage.php';
+            $new_page_url = '../View/chatPage.php';
             header('Location: ' . $new_page_url);
             exit;
         }
@@ -87,13 +89,13 @@ trait pageHandlerTrait {
         if ($_COOKIE['page'] > 0) {
             $pageNumber = $_COOKIE['page'];
             $pageNumber -= 1;
-            setcookie('page', $pageNumber, ['path' => "/chat/Views"]);
-            $new_page_url = '../Views/chatPage.php';
+            setcookie('page', $pageNumber, ['path' => "/chat/View"]);
+            $new_page_url = '../View/chatPage.php';
             header('Location: ' . $new_page_url);
             exit;
         }
         else {
-            $new_page_url = '../Views/chatPage.php';
+            $new_page_url = '../View/chatPage.php';
             header('Location: ' . $new_page_url);
             exit;
         }
