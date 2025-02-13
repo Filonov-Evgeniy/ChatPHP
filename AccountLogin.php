@@ -31,13 +31,13 @@ class AccountLogin
                 exit();
             } else {
                 setcookie('loginError', 'Неправильный логин или пароль', ['path' => '/chat/Views']);
-                $new_page_url = '../Views/loginPage.php';
+                $new_page_url = '../Views/index.php';
                 header('Location: ' . $new_page_url);
                 exit();
             }
         } else {
             setcookie('loginError', 'Неправильный логин или пароль', ['path' => '/chat/Views']);
-            $new_page_url = '../Views/loginPage.php';
+            $new_page_url = '../Views/index.php';
             header('Location: ' . $new_page_url);
             exit();
         }
