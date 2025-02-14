@@ -47,10 +47,10 @@ class MessageSender
 
                         $values[] = "'".$targetFile."'";
 
-                        $message->sendMessage(false, $values);
+                        $message->create(false, $values);
                     } else {
                         setcookie('errorChat', 'Размер файла не соответствует заданным требованиям (не более 240x320px)');
-                        $new_page_url = '../View/chatPage.php';
+                        $new_page_url = '/chat/View/chatPage.php';
                         header('Location: ' . $new_page_url);
                         exit();
                     }
@@ -60,23 +60,23 @@ class MessageSender
 
                         $values[] = "'".$targetFile."'";
 
-                        $message->sendMessage(false, $values);
+                        $message->create(false, $values);
                     } else {
                         setcookie('errorChat', 'Размер файла не соответствует заданным требованиям (не более 100кб)');
-                        $new_page_url = '../View/chatPage.php';
+                        $new_page_url = '/chat/View/chatPage.php';
                         header('Location: ' . $new_page_url);
                         exit();
                     }
                 }
             } else {
-                $message->sendMessage(false);
+                $message->create(false);
             }
-            $new_page_url = '../View/chatPage.php';
+            $new_page_url = '/chat/View/chatPage.php';
             header('Location: ' . $new_page_url);
             exit();
         } else {
             setcookie('errorChat', 'Вы не можете отправить пустое сообщение111');
-            $new_page_url = '../View/chatPage.php';
+            $new_page_url = '/chat/View/chatPage.php';
             header('Location: ' . $new_page_url);
             exit();
         }

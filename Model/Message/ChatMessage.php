@@ -52,10 +52,10 @@ class ChatMessage implements ChatMessageInterface
         $values = [
             "'".$this->getUsername()."'",
             "'".$this->getEmail()."'",
-            "'".$this->getChatBrowser()."'",
+            "'".$this->getMessageText()."'",
             "'".$this->getDate()."'",
-            "'".$this->getUsername()."'",
-            "'".$this->getEmail()."'",
+            "'".$this->getChatBrowser()."'",
+            "'".$this->getChatUserIp()."'",
         ];
         if($withSupplement) {
             $values[] = $this->getSupplement();
