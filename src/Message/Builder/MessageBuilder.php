@@ -16,4 +16,5 @@ interface MessageBuilder
     public function setChatBrowser($chatBrowser);
 
     public function setUserIp($userIp);
+    public function setSupplement($supplement);
 }

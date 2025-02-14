@@ -34,4 +34,7 @@ class MessageBuilderClass implements MessageBuilder
     public function setUserIp($userIp) {
         $this->message->setChatUserIp($userIp);
     }
+    public function setSupplement($supplement) {
+        $this->message->setSupplement($supplement);
+    }
 }

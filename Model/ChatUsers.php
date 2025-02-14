@@ -48,7 +48,7 @@ class ChatUsers
     }
 
     public function getUsername() {
-        return $this->username;
+        return $this->userName;
     }
 
     public function isExists(): bool {
@@ -59,7 +59,7 @@ class ChatUsers
         $result = $this->dbConnect->getFilteredList("ChatUsers", $filter, ' and ');
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
-            $this->username = $row['UserName'];
+            $this->userName = $row['UserName'];
             return true;
         }
         return false;

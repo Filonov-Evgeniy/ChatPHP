@@ -14,55 +14,48 @@ class ChatMessages
     protected $date;
     protected $chatBrowser;
     protected $chatUserIp;
+    protected $supplement;
     protected $dbConnect;
     private $table = "ChatMessages";
-
-//    public function __construct($username, $email, $messageText, $date, $chatBrowser, $chatUserIp) {
-//        $this->username = $username;
-//        $this->email = $email;
-//        $this->messageText = $messageText;
-//        $this->date = $date;
-//        $this->chatBrowser = $chatBrowser;
-//        $this->chatUserIp = $chatUserIp;
-//    }
 
     public function __construct() {
         $dbConnect = DBConnect::getInstance();
     }
 
-    public function sendMessage($columns, $values) {
-        $this->dbConnect->filteredCreate($this->table, $columns, $values);
+    public function sendMessage(bool $withSupplement) {
+        $this->dbConnect->filteredCreate($this->table, $this->getColumns($withSupplement), $this->setValuesForQuery($withSupplement));
     }
 
-    //TODO удалить булевские методы после перепривязки, они уже перенесены в Helper
-    public function checkTxtFileSize($fileSize, $maxFileSize) {
-        if ($fileSize <= $maxFileSize) {
-            return true;
+    private function getColumns(bool $withSupplement): array {
+        $columns = [
+            "Username",
+            "Email",
+            "Message",
+            "Input_Date",
+            "chat_browser",
+            "chat_user_ip",
+        ];
+        if(!$withSupplement) {
+            return $columns;
         }
-        return false;
+        $columns[] = "Supplement";
+        return $columns;
     }
 
-    public function checkImgSize($imgResolution, $maxImgWidth, $maxImgHeight) {
-        if($imgResolution[0] <= $maxImgWidth && $imgResolution[1] <= $maxImgHeight) {
-            return true;
+    private function setValuesForQuery(bool $withSupplement): array {
+        $values = [
+            "'".$this->getUsername()."'",
+            "'".$this->getEmail()."'",
+            "'".$this->getChatBrowser()."'",
+            "'".$this->getDate()."'",
+            "'".$this->getUsername()."'",
+            "'".$this->getEmail()."'",
+        ];
+        if($withSupplement) {
+            $values[] = $this->getSupplement();
+            return $values;
         }
-        return false;
-    }
-    public function isSupportedImgFileType(array $supportedImgTypes) {
-        $fileType = $_FILES['supplement']['type'];
-        if(in_array($fileType, $supportedImgTypes))
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public function isSupportedTxtType(array $supportedTxtTypes) {
-        $fileType = $_FILES['supplement']['type'];
-        if(in_array($fileType, $supportedTxtTypes)) {
-            return true;
-        }
-        return false;
+        return $values;
     }
 
     public function getUsername()
@@ -123,6 +116,16 @@ class ChatMessages
     public function setChatUserIp($chatUserIp)
     {
         $this->chatUserIp = $chatUserIp;
+    }
+
+    public function getSupplement()
+    {
+        return $this->supplement;
+    }
+
+    public function setSupplement($supplement)
+    {
+        $this->supplement = $supplement;
     }
 
 }
