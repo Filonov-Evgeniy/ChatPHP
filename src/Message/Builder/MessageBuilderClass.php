@@ -5,7 +5,7 @@ namespace Chat\src\Message\Builder;
 require '/chat/autoload.php';
 
 use Chat\src\Message\Builder;
-use Chat\Model\ChatMessages;
+use Chat\Model\Message\ChatMessages;
 
 class MessageBuilderClass implements MessageBuilder
 {
@@ -13,7 +13,7 @@ class MessageBuilderClass implements MessageBuilder
     public function __construct() {
         $this->message = new ChatMessages();
     }
-    public function build() {
+    public function build(): ChatMessages {
         return $this->message;
     }
     public function setUsername($username) {

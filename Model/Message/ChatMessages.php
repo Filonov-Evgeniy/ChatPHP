@@ -1,6 +1,6 @@
 <?php
 
-namespace Chat\Model;
+namespace Chat\Model\Message;
 
 require '/chat/autoload.php';
 

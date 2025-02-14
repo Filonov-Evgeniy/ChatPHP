@@ -14,7 +14,7 @@ use Chat\Controller\ChatPageController;
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
-    <form method="POST" action="/Controller/AuthorizationPageController/user_authorization_controller.php" class="form-group">
+    <form method="POST" action="/src/Controller/AuthorizationPageController/user_authorization_controller.php" class="form-group">
         <input type="text" name="login" placeholder="Email"><br>
         <input type="text" name="password" placeholder="Пароль"><br>
         <button type="submit">Вход</button><br>

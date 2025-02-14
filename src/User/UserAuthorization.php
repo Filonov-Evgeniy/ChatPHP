@@ -4,7 +4,7 @@ namespace Chat\src\User;
 require '/chat/autoload.php';
 
 use Chat\src\PageHandler\ChatPageHandler\ChatPageHandlerCLass;
-use Chat\Models\Login\Account;
+use Chat\Model\User\ChatUsers;
 use Chat\DBConnect;
 
 class UserAuthorization

@@ -22,7 +22,7 @@ use chat\src\Message\TableFiller;
         <button type="submit">Выйти</button>
         </form>
     </aside>
-    <form method="POST" action="/Controller/ChatPageController/table_filler_controller.php" class="container">
+    <form method="POST" action="/src/Controller/ChatPageController/table_filler_controller.php" class="container">
         <table>
             <thead>
                 <tr>
@@ -63,7 +63,7 @@ use chat\src\Message\TableFiller;
         <button type="submit" name="sortButton">Сортировать</button>
     </form>
 
-    <form class="chat-input" method="POST" action="/Controller/ChatPageController/message_sender_controller.php" enctype="multipart/form-data">
+    <form class="chat-input" method="POST" action="/src/Controller/ChatPageController/message_sender_controller.php" enctype="multipart/form-data">
         <input type="file" name="supplement" accept="image/jpeg, image/gif, image/png, text/plain">
         <textarea name="message_box" placeholder="Сообщение"></textarea>
         <button type="submit">Отправить</button>

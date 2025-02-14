@@ -1,77 +1,66 @@
 <?php
 namespace Chat\src\Message;
+//define('NO_CONNECTION', 'Y');
 
 require '/chat/autoload.php';
 
+use Chat\src\Message\Builder\MessageBuilderClass;
+use Chat\Model\Message\ChatMessages;
+use Chat\src\Message\MessageSenderHelper;
 use Chat\DBConnect;
 
 class MessageSender
 {
-    private $table = "ChatMessages";
+    private $maxImgHeight = 240;
+    private $maxImgWidth = 320;
+    private $supportedImgTypes = ['image/jpeg', 'image/gif', 'image/png'];
+    private $supportedTxtType = ['text/plain'];
+    private $uploadDirectory = '/chat/uploads/';
+    private $maxTxtFileSize = 100 * 1024;
+    private $senderHelper;
     public function send()
     {
         session_start();
-        $maxImgHeight = 240;
-        $maxImgWidth = 320;
-        $supportedImgTypes = ['image/jpeg', 'image/gif', 'image/png'];
-        $supportedTxtType = ['text/plain'];
-        $uploadDirectory = '../uploads/';
-        $maxTxtFileSize = 100 * 1024;
 
         if (!empty($_FILES['supplement']) || !empty($_POST['message_box'])) {
             setcookie('errorChat', ' ');
+
             $dbConnect = DBConnect::getInstance();
             $connect = $dbConnect->getConnection();
-            $message = mysqli_real_escape_string($connect, $_POST["message_box"]);
-            $message = htmlspecialchars($message);
-            $date = date('Y-m-d H:i:s');
-            $login = mysqli_real_escape_string($connect, $_SESSION["username"]);
-            $email = mysqli_real_escape_string($connect, $_SESSION["email"]);
-            $chatBrowser = $_SERVER['HTTP_USER_AGENT'];
-            $chatUserIp = $_SERVER['REMOTE_ADDR'];
-            $connect->close();
+            $messageText = mysqli_real_escape_string($connect, $_POST["message_box"]);
+            $messageText = htmlspecialchars($messageText);
+            $messageText = $this->useBBCode($messageText);
 
-            $message = $this->useBBCode($message);
-
-            $values = [
-                "'".$login."'",
-                "'".$email."'",
-                "'".$message."'",
-                "'".$date."'",
-                "'".$chatBrowser."'",
-                "'".$chatUserIp."'",
-            ];
+            $message = $this->buildMessage($connect, $messageText);
 
             if (isset($_FILES['supplement']) && $_FILES['supplement']['error'] === UPLOAD_ERR_OK) {
                 $tempFile = $_FILES['supplement']['tmp_name'];
                 $fileName = $_FILES['supplement']['name'];
                 $fileType = $_FILES['supplement']['type'];
                 $fileSize = $_FILES['supplement']['size'];
-                $targetFile = $uploadDirectory . $fileName;
-                if (in_array($fileType, $supportedImgTypes)) {
-                    $imgResolution = getimagesize($tempFile);
-                    if ($imgResolution[0] <= $maxImgWidth && $imgResolution[1] <= $maxImgHeight) {
+
+                $targetFile = $this->uploadDirectory . $fileName;
+
+                if ($this->senderHelper->isSupportedImgFileType($this->supportedImgTypes)) {
+                    if ($this->senderHelper->checkImgSize(getimagesize($tempFile) ,$this->maxImgHeight, $this->maxImgWidth)) {
                         move_uploaded_file($tempFile, $targetFile);
-                        $columns = $this->getColumns(true);
 
                         $values[] = "'".$targetFile."'";
 
-                        $dbConnect->filteredCreate($this->table, $columns, $values);
+                        $message->sendMessage(false, $values);
                     } else {
                         setcookie('errorChat', 'Размер файла не соответствует заданным требованиям (не более 240x320px)');
                         $new_page_url = '../View/chatPage.php';
                         header('Location: ' . $new_page_url);
                         exit();
                     }
-                } elseif
-                (in_array($fileType, $supportedTxtType)) {
-                    if ($fileSize <= $maxTxtFileSize) {
+                } elseif($this->senderHelper->isSupportedTxtType($this->supportedTxtType)) {
+                    if ($this->senderHelper->checkTxtFileSize($fileSize, $this->maxTxtFileSize)) {
                         move_uploaded_file($tempFile, $targetFile);
-                        $columns = $this->getColumns(true);
 
                         $values[] = "'".$targetFile."'";
 
-                        $dbConnect->filteredCreate($this->table, $columns, $values);
+                        $message->sendMessage(false, $values);
                     } else {
                         setcookie('errorChat', 'Размер файла не соответствует заданным требованиям (не более 100кб)');
                         $new_page_url = '../View/chatPage.php';
@@ -80,8 +69,7 @@ class MessageSender
                     }
                 }
             } else {
-                $columns = $this->getColumns(false);
-                $dbConnect->filteredCreate($this->table, $columns, $values);
+                $message->sendMessage(false);
             }
             $new_page_url = '../View/chatPage.php';
             header('Location: ' . $new_page_url);
@@ -110,19 +98,22 @@ class MessageSender
         return preg_replace($search, $replace, $text);
     }
 
-    private function getColumns(bool $withSupplement): array {
-        $columns = [
-            "Username",
-            "Email",
-            "Message",
-            "Input_Date",
-            "chat_browser",
-            "chat_user_ip",
-        ];
-        if(!$withSupplement) {
-            return $columns;
-        }
-        $columns[] = "Supplement";
-        return $columns;
+    public function __construct()
+    {
+        $this->senderHelper = new MessageSenderHelper();
+    }
+
+    private function buildMessage($connect, $messageText): ChatMessages {
+        $messageBuilder = new MessageBuilderClass();
+        $messageBuilder->setMessageText($messageText);
+        $messageBuilder->setDate(date('Y-m-d H:i:s'));
+        $messageBuilder->setUsername(mysqli_real_escape_string($connect, $_SESSION["username"]));
+        $messageBuilder->setEmail(mysqli_real_escape_string($connect, $_SESSION["email"]));
+        $messageBuilder->setChatBrowser($_SERVER['HTTP_USER_AGENT']);
+        $messageBuilder->setUserIp($_SERVER['REMOTE_ADDR']);
+
+        $connect->close();
+
+        return $messageBuilder->build();
     }
 }

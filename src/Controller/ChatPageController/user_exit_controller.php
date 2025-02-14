@@ -1,5 +1,5 @@
 <?php
-namespace Chat\Controller\ChatPageController;
+namespace Chat\src\Controller\ChatPageController;
 
 require '/chat/autoload.php';
 
