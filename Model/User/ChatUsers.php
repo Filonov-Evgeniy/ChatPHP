@@ -1,7 +1,7 @@
 <?php
 namespace Chat\Model\User;
 
-require '/chat/autoload.php';
+require $_SERVER['DOCUMENT_ROOT'].'/chat/autoload.php';
 
 use Chat\DBConnect;
 
@@ -22,18 +22,22 @@ class ChatUsers
         $this->dbConnect = DBConnect::getInstance();
         $this->table = "ChatUsers";
     }
-    public function registrateAccount() {
+
+    public function registrateAccount()
+    {
         $values = [
-            "'".$this->email."'",
-            "'".$this->userName."'",
-            "'".$this->password."'",
+            "'" . $this->email . "'",
+            "'" . $this->userName . "'",
+            "'" . $this->password . "'",
         ];
         $this->dbConnect->create($this->table, $values);
     }
-    public function isUniqueAccount(): bool {
+
+    public function isUniqueAccount(): bool
+    {
         $filter = [
-            "Email = ". "'".$this->email."'",
-            "UserName = ". "'".$this->userName."'",
+            "Email = " . "'" . $this->email . "'",
+            "UserName = " . "'" . $this->userName . "'",
         ];
         $result = $this->dbConnect->getFilteredList("ChatUsers", $filter, ' or ');
         if (mysqli_num_rows($result) > 0) {
@@ -43,18 +47,21 @@ class ChatUsers
         return true;
     }
 
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->userName;
     }
 
-    public function isExists(): bool {
+    public function isExists(): bool
+    {
         $filter = [
-            "Email = ". "'".$this->email."'",
-            "UserPassword = ". "'".$this->password."'",
+            "Email = " . "'" . $this->email . "'",
+            "UserPassword = " . "'" . $this->password . "'",
         ];
         $result = $this->dbConnect->getFilteredList("ChatUsers", $filter, ' and ');
         if (mysqli_num_rows($result) > 0) {
@@ -64,10 +71,4 @@ class ChatUsers
         }
         return false;
     }
-
-//    public function getList($filter){
-//
-//        $result = mysqli_query($connect, "Select * from ChatUsers where Email = '$this->email' or UserName = '$this->userName'");
-//
-//    }
 }

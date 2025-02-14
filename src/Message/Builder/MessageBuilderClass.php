@@ -2,18 +2,18 @@
 
 namespace Chat\src\Message\Builder;
 
-require '/chat/autoload.php';
+require $_SERVER['DOCUMENT_ROOT'].'/chat/autoload.php';
 
 use Chat\src\Message\Builder;
-use Chat\Model\Message\ChatMessages;
+use Chat\Model\Message\ChatMessage;
 
 class MessageBuilderClass implements MessageBuilder
 {
     protected $message;
     public function __construct() {
-        $this->message = new ChatMessages();
+        $this->message = new ChatMessage();
     }
-    public function build(): ChatMessages {
+    public function build(): ChatMessage {
         return $this->message;
     }
     public function setUsername($username) {

@@ -1,7 +1,7 @@
 <?php
 namespace Сhat\src\Controller\AuthorizationPageController;
 
-require '/Сhat/autoload.php';
+require $_SERVER['DOCUMENT_ROOT'].'/chat/autoload.php';
 
 use chat\src\User\User;
 

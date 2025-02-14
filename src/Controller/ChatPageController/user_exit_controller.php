@@ -1,9 +1,9 @@
 <?php
 namespace Chat\src\Controller\ChatPageController;
 
-require '/chat/autoload.php';
+require $_SERVER['DOCUMENT_ROOT'].'/chat/autoload.php';
 
-use Chat\src\User\UserExit;
+use Chat\src\User\User;
 
-$exitAccount = new UserExit();
+$exitAccount = new User();
 $exitAccount->exit();

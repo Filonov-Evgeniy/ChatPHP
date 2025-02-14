@@ -1,11 +1,10 @@
 <?php
 namespace Chat\src\User;
 
-require '/chat/autoload.php';
+require $_SERVER['DOCUMENT_ROOT'].'/chat/autoload.php';
 
-use Chat\Model\ChatUsers;
+use Chat\Model\User\ChatUsers;
 use Chat\src\PageHandler\ChatPageHandler\ChatPageHandlerCLass;
-use Chat\Models\Login\Account;
 use Chat\DBConnect;
 class User
 {
@@ -15,12 +14,12 @@ class User
             $dbConnect = DBConnect::getInstance();
             $connect = $dbConnect->getConnection();
 
-            $login = mysqli_real_escape_string($connect, $_POST['login']);
+            $email = mysqli_real_escape_string($connect, $_POST['login']);
             $password = mysqli_real_escape_string($connect, $_POST['password']);
 
             $connect->close();
 
-            $account = new Account($login, $password);
+            $account = new ChatUsers(null, $email, $password);
 
             if ($account->isExists()) {
                 session_start();
@@ -31,13 +30,13 @@ class User
                 exit();
             } else {
                 setcookie('loginError', 'Неправильный логин или пароль', ['path' => '/chat/View']);
-                $new_page_url = '../View/index.php';
+                $new_page_url = '/chat/View/index.php';
                 header('Location: ' . $new_page_url);
                 exit();
             }
         } else {
             setcookie('loginError', 'Неправильный логин или пароль', ['path' => '/chat/View']);
-            $new_page_url = '../View/index.php';
+            $new_page_url = '/chat/View/index.php';
             header('Location: ' . $new_page_url);
             exit();
         }
@@ -46,7 +45,7 @@ class User
     public function exit()
     {
         session_destroy();
-        $new_page_url = '../View/index.php';
+        $new_page_url = '/chat/View/index.php';
         header('Location: ' . $new_page_url);
     }
 
@@ -62,18 +61,18 @@ class User
 
             if (!$account->isUniqueAccount()) {
                 setcookie('registrationError', 'Аккаунт с такой почтой или именем пользователя уже существует', ['path' => '/chat/View']);
-                $new_page_url = '../View/registrationPage.php';
+                $new_page_url = '/chat/View/registrationPage.php';
                 header('Location: ' . $new_page_url);
                 exit();
             } else {
                 $account->registrateAccount();
-                $new_page_url = '../View/index.php';
+                $new_page_url = '/chat/View/index.php';
                 header('Location: ' . $new_page_url);
                 exit();
             }
         } else {
             setcookie('registrationError', 'Ошибка ввода данных', ['path' => '/chat/View']);
-            $new_page_url = '../View/registrationPage.php';
+            $new_page_url = '/chat/View/registrationPage.php';
             header('Location: ' . $new_page_url);
             exit();
         }

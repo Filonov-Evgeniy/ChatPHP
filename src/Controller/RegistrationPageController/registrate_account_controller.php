@@ -1,4 +1,4 @@
 <?php
 namespace Chat\src\Controllers;
 
-require '/chat/autoload.php';
+require $_SERVER['DOCUMENT_ROOT'].'/chat/autoload.php';

@@ -2,11 +2,12 @@
 
 namespace Chat\Model\Message;
 
-require '/chat/autoload.php';
+require $_SERVER['DOCUMENT_ROOT'].'/chat/autoload.php';
 
 use Chat\DBConnect;
+use Chat\src\Chat\ChatMessageInterface;
 
-class ChatMessages
+class ChatMessage implements ChatMessageInterface
 {
     protected $username;
     protected $email;
@@ -19,11 +20,16 @@ class ChatMessages
     private $table = "ChatMessages";
 
     public function __construct() {
-        $dbConnect = DBConnect::getInstance();
+        $this->dbConnect = DBConnect::getInstance();
     }
 
-    public function sendMessage(bool $withSupplement) {
+    public function create(bool $withSupplement) {
         $this->dbConnect->filteredCreate($this->table, $this->getColumns($withSupplement), $this->setValuesForQuery($withSupplement));
+    }
+
+    public function getList(): array
+    {
+        return $this->dbConnect->getOrderedList($this->table, $_SESSION['sortColumn'], $_SESSION['sortOrder']);
     }
 
     private function getColumns(bool $withSupplement): array {

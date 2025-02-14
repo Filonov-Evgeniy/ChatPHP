@@ -2,10 +2,10 @@
 namespace Chat\src\Message;
 //define('NO_CONNECTION', 'Y');
 
-require '/chat/autoload.php';
+require $_SERVER['DOCUMENT_ROOT'].'/chat/autoload.php';
 
 use Chat\src\Message\Builder\MessageBuilderClass;
-use Chat\Model\Message\ChatMessages;
+use Chat\Model\Message\ChatMessage;
 use Chat\src\Message\MessageSenderHelper;
 use Chat\DBConnect;
 
@@ -103,7 +103,7 @@ class MessageSender
         $this->senderHelper = new MessageSenderHelper();
     }
 
-    private function buildMessage($connect, $messageText): ChatMessages {
+    private function buildMessage($connect, $messageText): ChatMessage {
         $messageBuilder = new MessageBuilderClass();
         $messageBuilder->setMessageText($messageText);
         $messageBuilder->setDate(date('Y-m-d H:i:s'));

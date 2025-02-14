@@ -1,14 +1,14 @@
 <?php
-require '/chat/prolog.php';
+require $_SERVER['DOCUMENT_ROOT'].'/chat/prolog.php';
 
-use Chat\Cookie;
+use Chat\src\Cookie;
 ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Регистрация</title>
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/chat/styles.css">
 </head>
 <body>
     <form method="POST" action="/chat/Controller/RegistrationPageController/registrate_account_controller.php">
