@@ -9,6 +9,8 @@ use Chat\Model\Message\ChatMessage;
 use Chat\src\Message\MessageSenderHelper;
 use Chat\DBConnect;
 
+session_start();
+
 class MessageSender
 {
     private $maxImgHeight = 240;
@@ -20,8 +22,6 @@ class MessageSender
     private $senderHelper;
     public function send()
     {
-        session_start();
-
         if (!empty($_FILES['supplement']) || !empty($_POST['message_box'])) {
             setcookie('errorChat', ' ');
 
