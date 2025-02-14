@@ -1,10 +1,10 @@
 <?php
 namespace Chat;
 
-require 'autoload.php';
+require '/chat/autoload.php';
 
 use Chat\DBConnect;
-use Chat\Models\Registration\ChatUsers;
+use Chat\Model\ChatUsers;
 
 class UserRegistration
 {

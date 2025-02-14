@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-require "../autoload.php";
+require '/chat/prolog.php';
 
-use Chat\Controllers;
+use Chat\Controller\ChatPageController;
 
 ?>
 <!DOCTYPE html>

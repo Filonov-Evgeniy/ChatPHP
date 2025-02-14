@@ -1,10 +1,11 @@
 <?php
-namespace Chat;
+namespace Chat\src\User;
 
-require 'autoload.php';
+require '/chat/autoload.php';
 
-use Chat\ChatPageHandler\ChatPageHandler;
+use Chat\src\PageHandler\ChatPageHandler\ChatPageHandlerCLass;
 use Chat\Models\Login\Account;
+use Chat\DBConnect;
 
 class UserAuthorization
 {
@@ -25,7 +26,7 @@ class UserAuthorization
                 session_start();
                 $_SESSION["email"] = $account->getEmail();
                 $_SESSION["username"] = $account->getUsername();
-                $pageHandler = new ChatPageHandler();
+                $pageHandler = new ChatPageHandlerClass();
                 $pageHandler->setPageDefaultData();
                 exit();
             } else {

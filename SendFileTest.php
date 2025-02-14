@@ -1,11 +1,11 @@
 <?php
 namespace Chat;
-define('NO_CONNECTION', 'Y');
+//define('NO_CONNECTION', 'Y');
 
 require 'autoload.php';
 
-use Chat\Builder\MessageBuilderClass;
-use Chat\Models\Message;
+use Chat\src\Message\Builder\MessageBuilderClass;
+use Chat\Model\ChatMessages;
 
 class SendFileTest
 {

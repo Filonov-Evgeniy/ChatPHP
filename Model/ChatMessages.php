@@ -2,6 +2,8 @@
 
 namespace Chat\Model;
 
+require '/chat/autoload.php';
+
 use Chat\DBConnect;
 
 class ChatMessages

@@ -1,8 +1,8 @@
 <?php
-require '../prolog.php';
+require '/chat/prolog.php';
 
-use Chat\Controller;
-use Chat\src\Message\TableFiller;
+use chat\Controller;
+use chat\src\Message\TableFiller;
 
 ?>
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ use Chat\src\Message\TableFiller;
         <p><?= $_SESSION["username"] ?></p>
         <p>Email:</p>
         <p><?= $_SESSION["email"] ?></p>
-        <form action="/Controller/ChatPageController/user_exit_controller.php">
+        <form action="/chat/Controller/ChatPageController/user_exit_controller.php">
         <button type="submit">Выйти</button>
         </form>
     </aside>

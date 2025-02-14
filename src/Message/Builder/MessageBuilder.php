@@ -1,6 +1,6 @@
 <?php
 
-namespace Chat\src\Builder;
+namespace Chat\src\Message\Builder;
 interface MessageBuilder
 {
     public function build();
