@@ -65,7 +65,7 @@ class User
                 header('Location: ' . $new_page_url);
                 exit();
             } else {
-                $account->registrateAccount();
+                $account->create();
                 $new_page_url = '/chat/View/index.php';
                 header('Location: ' . $new_page_url);
                 exit();

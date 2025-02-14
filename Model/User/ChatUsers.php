@@ -4,8 +4,9 @@ namespace Chat\Model\User;
 require $_SERVER['DOCUMENT_ROOT'].'/chat/autoload.php';
 
 use Chat\DBConnect;
+use Chat\src\Chat\ChatUserInterface;
 
-class ChatUsers
+class ChatUsers implements ChatUserInterface
 {
     protected $userName;
     protected $email;
@@ -23,7 +24,7 @@ class ChatUsers
         $this->table = "ChatUsers";
     }
 
-    public function registrateAccount()
+    public function create()
     {
         $values = [
             "'" . $this->email . "'",
@@ -33,13 +34,19 @@ class ChatUsers
         $this->dbConnect->create($this->table, $values);
     }
 
+    public function getList($filter, $separator)
+    {
+        return $this->dbConnect->getFilteredList($this->table, $filter, $separator);
+    }
+
     public function isUniqueAccount(): bool
     {
         $filter = [
             "Email = " . "'" . $this->email . "'",
             "UserName = " . "'" . $this->userName . "'",
         ];
-        $result = $this->dbConnect->getFilteredList("ChatUsers", $filter, ' or ');
+        $separator = ' or ';
+        $result = $this->getList($filter, $separator);
         if (mysqli_num_rows($result) > 0) {
             return false;
         }
@@ -63,7 +70,8 @@ class ChatUsers
             "Email = " . "'" . $this->email . "'",
             "UserPassword = " . "'" . $this->password . "'",
         ];
-        $result = $this->dbConnect->getFilteredList("ChatUsers", $filter, ' and ');
+        $separator = ' and ';
+        $result = $this->getList($filter, $separator);
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
             $this->userName = $row['UserName'];
