@@ -1,9 +1,7 @@
 <?php
-session_start();
+require $_SERVER['DOCUMENT_ROOT'].'/chat/prolog.php';
 
-require '/chat/prolog.php';
-
-use Chat\Controller\ChatPageController;
+use Chat\src\Controller\ChatPageController;
 
 ?>
 <!DOCTYPE html>
@@ -11,10 +9,10 @@ use Chat\Controller\ChatPageController;
 <head>
     <meta charset="UTF-8">
     <title>Вход</title>
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/chat/styles.css">
 </head>
 <body>
-    <form method="POST" action="/Controller/AuthorizationPageController/user_authorization_controller.php" class="form-group">
+    <form method="POST" action="/chat/src/Controller/AuthorizationPageController/user_authorization_controller.php" class="form-group">
         <input type="text" name="login" placeholder="Email"><br>
         <input type="text" name="password" placeholder="Пароль"><br>
         <button type="submit">Вход</button><br>
