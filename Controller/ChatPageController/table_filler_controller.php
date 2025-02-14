@@ -1,7 +1,7 @@
 <?php
 namespace Chat\Controller\ChatPageController;
 
-require '../autoload.php';
+require '/chat/autoload.php';
 
 use Chat\src\Message\TableFiller;
 

@@ -1,5 +1,6 @@
 <?php
-class ChatMessagesModelHelper {
+namespace Chat\src\Message;
+class MessageSenderHelper {
     public function checkTxtFileSize($fileSize, $maxFileSize) {
         if ($fileSize <= $maxFileSize) {
             return true;

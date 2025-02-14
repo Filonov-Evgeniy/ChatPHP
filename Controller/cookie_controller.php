@@ -1,7 +1,7 @@
 <?php
 namespace Chat\Controller;
 
-require "../autoload.php";
+require "/chat/autoload.php";
 
 use Chat\src\Cookie\Cookie;
 

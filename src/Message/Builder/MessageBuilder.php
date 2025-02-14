@@ -1,6 +1,6 @@
 <?php
 
-namespace Chat\src\Builder;
+namespace Chat\src\Message\Builder;
 interface MessageBuilder
 {
     public function build();
@@ -16,4 +16,5 @@ interface MessageBuilder
     public function setChatBrowser($chatBrowser);
 
     public function setUserIp($userIp);
+    public function setSupplement($supplement);
 }

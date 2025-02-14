@@ -1,9 +1,9 @@
 <?php
-namespace Chat\Controller\AuthorizationPageController;
+namespace Сhat\Controller\AuthorizationPageController;
 
-require '../autoload.php';
+require '/Сhat/autoload.php';
 
-use Chat\UserAuthorization;
+use chat\src\User\UserAuthorization;
 
 $accountLogin = new UserAuthorization();
 $accountLogin->login();

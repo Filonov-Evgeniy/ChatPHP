@@ -1,7 +1,7 @@
 <?php
 namespace Chat\src\PageHandler\ChatPageHandler;
 
-require_once 'autoload.php';
+require_once '/chat/autoload.php';
 
 use Chat\DBConnect;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Chat\src\Builder;
+namespace Chat\src\Message\Builder;
 
-require 'autoload.php';
+require '/chat/autoload.php';
 
-use Chat\src\Builder;
+use Chat\src\Message\Builder;
 use Chat\Model\ChatMessages;
 
 class MessageBuilderClass implements MessageBuilder
@@ -33,5 +33,8 @@ class MessageBuilderClass implements MessageBuilder
     }
     public function setUserIp($userIp) {
         $this->message->setChatUserIp($userIp);
+    }
+    public function setSupplement($supplement) {
+        $this->message->setSupplement($supplement);
     }
 }

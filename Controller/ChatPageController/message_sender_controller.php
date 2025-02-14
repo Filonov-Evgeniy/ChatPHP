@@ -1,10 +1,10 @@
 <?php
 namespace Chat\Controller\ChatPageController;
 
-require '../autoload.php';
+require '/Chat/autoload.php';
 
 //use Chat\MessageSender;
-use Chat\src\Message\MessageSender;
+use Сhat\src\Message\MessageSender;
 
 $sendMessage = new MessageSender();
 $sendMessage->send();

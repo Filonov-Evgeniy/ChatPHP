@@ -1,7 +1,7 @@
 <?php
-    require '../autoload.php';
+require '/chat/prolog.php';
 
-    use Chat\Cookie;
+use Chat\Cookie;
 ?>
 <!DOCTYPE html>
 <html lang="ru">

@@ -1,7 +1,7 @@
 <?php
 namespace Chat\src\Message;
 
-require $_SERVER['DOCUMENT_ROOT'].'/chat/autoload.php';
+require '/chat/autoload.php';
 //require_once 'ChatPageHandlerClass.php';
 
 use Chat\src\PageHandler\ChatPageHandler\ChatPageHandlerClass;
