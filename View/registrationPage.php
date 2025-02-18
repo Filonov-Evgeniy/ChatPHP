@@ -1,7 +1,9 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'].'/chat/prolog.php';
 
-use Chat\src\Cookie;
+use Chat\src\Cookie\Cookie;
+
+Cookie::setCookie();
 ?>
 <!DOCTYPE html>
 <html lang="ru">
