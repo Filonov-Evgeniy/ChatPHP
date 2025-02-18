@@ -3,7 +3,7 @@ namespace Chat\src\User;
 
 require $_SERVER['DOCUMENT_ROOT'].'/chat/autoload.php';
 
-use Chat\Model\User\ChatUsers;
+use Chat\src\User\ChatUsers;
 use Chat\src\PageHandler\ChatPageHandler\ChatPageHandlerCLass;
 use Chat\DBConnect;
 class User

@@ -1,5 +1,5 @@
 <?php
-namespace Chat\Model\User;
+namespace Chat\src\User;
 
 require $_SERVER['DOCUMENT_ROOT'].'/chat/autoload.php';
 
