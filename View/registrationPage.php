@@ -11,7 +11,7 @@ use Chat\src\Cookie;
     <link rel="stylesheet" href="/chat/styles.css">
 </head>
 <body>
-    <form method="POST" action="/chat/Controller/RegistrationPageController/registrate_account_controller.php">
+    <form method="POST" action="/chat/src/Controller/RegistrationPageController/registrate_account_controller.php">
         <div class="form-group">
             <input type="text" name="email" placeholder="E-mail"><br>
             <input type="text" name="userName" placeholder="Имя пользователя"><br>
