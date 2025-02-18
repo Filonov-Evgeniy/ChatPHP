@@ -3,7 +3,7 @@ namespace Chat\src\User;
 
 require $_SERVER['DOCUMENT_ROOT'].'/chat/autoload.php';
 
-use Chat\Model\User\ChatUsers;
+use Chat\src\User\ChatUsers;
 use Chat\src\PageHandler\ChatPageHandler\ChatPageHandlerCLass;
 use Chat\DBConnect;
 class User
@@ -23,19 +23,20 @@ class User
 
             if ($account->isExists()) {
                 session_start();
+                setcookie('loginError', ' ', ['path' => '/chat']);
                 $_SESSION["email"] = $account->getEmail();
                 $_SESSION["username"] = $account->getUsername();
                 $pageHandler = new ChatPageHandlerClass();
                 $pageHandler->setPageDefaultData();
                 exit();
             } else {
-                setcookie('loginError', 'Неправильный логин или пароль', ['path' => '/chat/View']);
+                setcookie('loginError', 'Неправильный логин или пароль', ['path' => '/chat']);
                 $new_page_url = '/chat/View/index.php';
                 header('Location: ' . $new_page_url);
                 exit();
             }
         } else {
-            setcookie('loginError', 'Неправильный логин или пароль', ['path' => '/chat/View']);
+            setcookie('loginError', 'Неправильный логин или пароль', ['path' => '/chat']);
             $new_page_url = '/chat/View/index.php';
             header('Location: ' . $new_page_url);
             exit();
@@ -60,18 +61,19 @@ class User
             $account = new ChatUsers($userName, $email, $password);
 
             if (!$account->isUniqueAccount()) {
-                setcookie('registrationError', 'Аккаунт с такой почтой или именем пользователя уже существует', ['path' => '/chat/View']);
+                setcookie('registrationError', 'Аккаунт с такой почтой или именем пользователя уже существует', ['path' => '/chat']);
                 $new_page_url = '/chat/View/registrationPage.php';
                 header('Location: ' . $new_page_url);
                 exit();
             } else {
                 $account->create();
+                setcookie('registrationError', ' ', ['path' => '/chat']);
                 $new_page_url = '/chat/View/index.php';
                 header('Location: ' . $new_page_url);
                 exit();
             }
         } else {
-            setcookie('registrationError', 'Ошибка ввода данных', ['path' => '/chat/View']);
+            setcookie('registrationError', 'Ошибка ввода данных', ['path' => '/chat']);
             $new_page_url = '/chat/View/registrationPage.php';
             header('Location: ' . $new_page_url);
             exit();

@@ -2,9 +2,11 @@
 namespace Chat\src\Cookie;
 class Cookie
 {
-    public function setCookie()
+    public static function setCookie()
     {
-        setcookie('loginError', ' ', ['path' => "/chat"]);
-        setcookie('registrationError', ' ', ['path' => "/chat"]);
+        if (empty($_COOKIE['loginError']) || empty($_COOKIE['registerError'])) {
+            setcookie('loginError', ' ', ['path' => "/chat"]);
+            setcookie('registrationError', ' ', ['path' => "/chat"]);
+        }
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Chat\src\PageHandler\ChatPageHandler;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/chat/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/chat/prolog.php';
 
 use Chat\DBConnect;
-use Chat\Model\Message\ChatMessage;
-use Chat\Model\User\ChatUsers;
+use Chat\src\Message\ChatMessage;
+use Chat\src\User\ChatUsers;
 
 trait ChatPageHandlerTrait
 {
@@ -80,7 +80,7 @@ trait ChatPageHandlerTrait
         $pageSize = 25;
         $pageNumber = $_COOKIE['page'];
         if ($_SESSION['db_rows_count'] > ($pageNumber + 1) * $pageSize) {
-            $pageNumber += 1;
+            $pageNumber++;
             setcookie('page', $pageNumber, ['path' => "/chat"]);
             $new_page_url = '/chat/View/chatPage.php';
             header('Location: ' . $new_page_url);

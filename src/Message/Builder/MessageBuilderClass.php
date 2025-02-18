@@ -5,7 +5,7 @@ namespace Chat\src\Message\Builder;
 require $_SERVER['DOCUMENT_ROOT'].'/chat/autoload.php';
 
 use Chat\src\Message\Builder;
-use Chat\Model\Message\ChatMessage;
+use Chat\src\Message\ChatMessage;
 
 class MessageBuilderClass implements MessageBuilder
 {
